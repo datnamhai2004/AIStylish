@@ -1,3 +1,4 @@
+/* Wrapper chứa 2 form */
 .wrapper {
     position: relative;
     width: 420px;
@@ -14,43 +15,49 @@
     transition: height .2s ease;
 }
 
+/* Khi active, tăng chiều cao wrapper */
 .wrapper.active {
     height: 520px;
 }
 
+/* Cấu trúc form */
 .wrapper .form-box {
     width: 100%;
     padding: 40px;
 }
 
+/* Cấu trúc cho form login */
 .wrapper .form-box.login {
     transition: translate .18s ease;
     translate: 0;
 }
 
+/* Khi chuyển sang register, form login di chuyển ra ngoài */
 .wrapper.active .form-box.login {
     transition: none;
     translate: -400px;
 }
 
+/* Cấu trúc cho form register */
 .wrapper .form-box.register {
     position: absolute;
     transition: none;
     translate: 400px;
-
 }
 
+/* Khi chuyển sang register, form register di chuyển vào */
 .wrapper.active .form-box.register {
     transition: translate .18s ease;
     translate: 0;
 }
 
-
+/* Tiêu đề của form */
 form h1 {
     font-size: 36px;
     text-align: center;
 }
 
+/* Cấu trúc của các ô input */
 form .input-box {
     position: relative;
     width: 100%;
@@ -58,6 +65,7 @@ form .input-box {
     margin: 30px 0;
 }
 
+/* Style cho ô input */
 .input-box input {
     width: 100%;
     height: 100%;
@@ -71,10 +79,12 @@ form .input-box {
     padding: 20px 45px 20px 20px;
 }
 
+/* Style placeholder trong input */
 .input-box input::placeholder {
     color: #fff;
 }
 
+/* Icon trong ô input */
 .input-box .icon {
     position: absolute;
     right: 20px;
@@ -83,6 +93,7 @@ form .input-box {
     font-size: 16px;
 }
 
+/* Style phần quên mật khẩu và nhớ tài khoản */
 form .remember-forgot {
     display: flex;
     justify-content: space-between;
@@ -90,11 +101,13 @@ form .remember-forgot {
     margin: -15px 0 15px;
 }
 
+/* Checkbox nhớ tài khoản */
 .remember-forgot label input {
     accent-color: #fff;
     margin-right: 4px;
 }
 
+/* Style cho link quên mật khẩu */
 .remember-forgot a {
     color: #fff;
     text-decoration: none;
@@ -104,6 +117,7 @@ form .remember-forgot {
     text-decoration: underline;
 }
 
+/* Button đăng nhập và đăng ký */
 form button {
     width: 100%;
     height: 45px;
@@ -118,6 +132,7 @@ form button {
     font-weight: 700;
 }
 
+/* Link chuyển đổi giữa đăng nhập và đăng ký */
 form .register-link {
     font-size: 14.5px;
     text-align: center;
