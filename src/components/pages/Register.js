@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "../styles/LoginRegister.css";
 import { FaUser, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import axios from 'axios';
 
 const Register = ({ switchToLogin }) => {
   const [formData, setFormData] = useState({
@@ -15,11 +16,26 @@ const Register = ({ switchToLogin }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleRegister = (e) => {
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Add any local handling logic if needed
-    alert('Đăng ký thành công!');
+  
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!emailPattern.test(formData.email)) {
+      alert('Vui lòng nhập email đúng định dạng @gmail.com!');
+      return;
+    }
+  
+    try {
+      const response = await axios.post('http://localhost:5000/users', formData);
+      alert('Đăng ký thành công!');
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error:', error.response ? error.response.data : error.message);
+      alert('Đăng ký thất bại. Vui lòng thử lại!');
+    }
   };
+  
 
   return (
     <div className='form-box register'>
@@ -38,14 +54,16 @@ const Register = ({ switchToLogin }) => {
         </div>
 
         <div className='input-box'>
-          <input
-            type='email'
-            name='email'
-            placeholder='Email'
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
+        <input
+          type='email'
+          name='email'
+          placeholder='Email'
+          value={formData.email}
+          onChange={handleInputChange}
+          pattern='^[a-zA-Z0-9._%+-]+@gmail\.com$'
+          title='Vui lòng nhập email đúng định dạng (vd: example@gmail.com)'
+          required
+        />
           <MdEmail className='icon' />
         </div>
 
