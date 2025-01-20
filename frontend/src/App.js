@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginRegister from './components/pages/LoginRegister'
-// import Homepage from './components/pages/Homepage'
+// import Chatbot from './components/pages/Chatbot'
 const App = () => {
   return (
     <div>
