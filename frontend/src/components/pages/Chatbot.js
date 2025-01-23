@@ -48,7 +48,7 @@ const Chatbot = () => {
         setSelectedImage(imageUrl); // Lưu URL của ảnh vào state
       }
     };
-    
+
   
     return (
       <div className="chatbot-container">

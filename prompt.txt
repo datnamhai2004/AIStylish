@@ -1,6 +1,0 @@
-Tôi cao {height}m, nặng {weight}kg, dáng người {body_type}, thích phong cách {style_preference}.
-Dựa trên dữ liệu này, hãy gợi ý 3 trang phục phù hợp nhất cho tôi, bao gồm:
-- Loại quần áo (quần, áo, váy, phụ kiện, v.v.)
-- Màu sắc phù hợp
-- Dịp sử dụng (công sở, đi chơi, v.v.)
-Nếu có thể, bạn hãy gợi ý cho tôi một phong cách khác nữa ngoài {style_preference}
