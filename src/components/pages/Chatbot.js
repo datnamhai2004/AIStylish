@@ -2,21 +2,25 @@ import React, { useState } from "react";
 import "../styles/Chatbot.css";
 import { TiThMenu } from "react-icons/ti";
 import logo from "../../assets/logo.png";
-import { FaUser } from "react-icons/fa";
-import { IoSend } from "react-icons/io5";
+import { FaUserCircle } from "react-icons/fa";
+import { IoSend, IoArrowBackCircle  } from "react-icons/io5";
 import { RiImageAddFill } from "react-icons/ri";
-
+import { useNavigate } from "react-router-dom";
 const Chatbot = () => {
     const [messages, setMessages] = useState([]); // Lưu trữ tin nhắn
     const [inputMessage, setInputMessage] = useState(""); // Lưu nội dung nhập
     const [selectedImage, setSelectedImage] = useState(null); // Lưu ảnh đã chọn
-  
+    const navigate = useNavigate(); 
     const handleMenuClick = () => {
       console.log("Menu icon clicked!");
     };
   
     const handleProfileClick = () => {
       console.log("Profile icon clicked!");
+    };
+
+    const handleBackClick = () => {
+      navigate("/");
     };
   
     // Gửi tin nhắn
@@ -54,21 +58,27 @@ const Chatbot = () => {
       <div className="chatbot-container">
         {/* Header */}
         <header className="header">
-          <div className="menu-container">
+          <div className="back-container">
+            <div className="backicon-icon" onClick={handleBackClick}>
+              <IoArrowBackCircle />
+            </div>
+          </div>
+
+          <div className="logo">
+            <h1>Fashion Your Way</h1>
+          </div>
+
+          {/* Nhóm profile và menu icon để chúng sát nhau hơn */}
+          <div className="right-icons">
+            <div className="profile-icon" onClick={handleProfileClick}>
+              <FaUserCircle />
+            </div>
             <div className="menu-icon" onClick={handleMenuClick}>
               <TiThMenu />
             </div>
           </div>
-          <div className="logo">
-            <img src={logo} alt="AI Stylish Logo" className="logo-image" />
-            <h1>Fashion Your Way</h1>
-          </div>
-          <div className="profile-container">
-            <div className="profile-icon" onClick={handleProfileClick}>
-              <FaUser />
-            </div>
-          </div>
         </header>
+
   
         {/* Chat Content */}
         <main className="chat-area">

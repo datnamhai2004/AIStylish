@@ -19,38 +19,90 @@ body {
 }
 
 /* Header */
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #333;
-  padding: 10px 15px;
-  color: #fff;
+  background-color: #0e0e0e;
+  color: white;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
-.menu-container, .profile-container {
+/* Container của nút back */
+.back-container {
+  flex: 0.1;
   display: flex;
   align-items: center;
 }
 
-.menu-icon, .profile-icon {
-  font-size: 24px;
+/* Hiệu ứng nút back */
+.backicon-icon {
+  font-size: 35px;
   cursor: pointer;
+  transition: transform 0.2s;
 }
 
+.backicon-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Phần logo nằm giữa */
 .logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.logo-image {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-bottom: 5px;
+/* Nhóm chứa icon profile và menu */
+.right-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Điều chỉnh khoảng cách giữa profile và menu */
 }
- 
+
+/* Icon profile & menu */
+.profile-icon,
+.menu-icon {
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.profile-icon:hover,
+.menu-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive cho Mobile */
+@media (max-width: 768px) {
+  .header {
+    padding: 10px;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+
+  .backicon-icon,
+  .profile-icon,
+  .menu-icon {
+    font-size: 24px;
+  }
+
+  .right-icons {
+    gap: 5px; /* Giảm khoảng cách trên mobile */
+  }
+}
+
 
 /* Chat Area */
 .chat-area {
@@ -66,12 +118,13 @@ body {
 /* Khung hiển thị tin nhắn */
 .chat-box {
   flex: 1; /* Để khung tin nhắn chiếm không gian còn lại */
-  max-height: 680px; /* Giới hạn chiều cao khung */
+  max-height: 800px; /* Giới hạn chiều cao khung */
   overflow-y: auto; /* Bật cuộn khi nội dung vượt quá khung */
   padding: 10px;
+  margin-top: 80px;
   background-color: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   margin-bottom: 10px;
 }
 
@@ -156,6 +209,9 @@ body {
   padding: 10px;
   background-color: #ffffff;
   border-top: 1px solid #ddd;
+  border-radius: 25px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+
 }
 
 .add-image-icon {
@@ -196,7 +252,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #333;
+  background-color: #0e0e0e;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
