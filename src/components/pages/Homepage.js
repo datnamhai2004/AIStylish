@@ -204,7 +204,7 @@ const Homepage = () => {
           )}
         </div>
 
-        <span className="brand-name">FASHION YOUR WAY</span>
+        <span className="brand-name">AISTYLISH</span>
 
         <div className="nav-right">
           <div className="search-bar">
@@ -263,17 +263,18 @@ const Homepage = () => {
        <footer className="footer">
         <div className="footer-container">
           <div className="footer-column">
-            <h3>Thời trang nam TORANO</h3>
+            <h3>Thời trang AISTYLISH</h3>
             <p>
-              Hệ thống thời trang cho phái mạnh hàng đầu Việt Nam, hướng tới phong cách nam tính, lịch lãm và trẻ trung.
+              Hệ thống thời trang hàng đầu Việt Nam, hướng tới phong cách cá tính, lịch lãm và trẻ trung.
             </p>
             <div className="social-icons">
-              <FaFacebook />
-              <FaInstagram />
-              <FaTwitter />
-              <FaTiktok />
-              <FaYoutube />
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"><FaTiktok /></a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
             </div>
+
             <h4>Phương thức thanh toán</h4>
             <div className="payment-methods">
               <img src="/products/Payment/VNPAY.png" alt="VNPay" />
@@ -287,22 +288,22 @@ const Homepage = () => {
 
           <div className="footer-column">
             <h3>Thông tin liên hệ</h3>
-            <p><strong>Địa chỉ:</strong> Tầng 8, tòa nhà Ford, số 313 Trường Chinh, quận Thanh Xuân, Hà Nội</p>
-            <p><strong>Điện thoại:</strong> 0964942121</p>
-            <p><strong>Fax:</strong> 0904636356</p>
-            <p><strong>Email:</strong> cskh@torano.vn</p>
+            <p><strong>Địa chỉ:</strong></p>
+            <p><strong>Điện thoại:</strong></p>
+            <p><strong>Fax:</strong></p>
+            <p><strong>Email:</strong></p>
             <h4>Phương thức vận chuyển</h4>
             <div className="shipping-methods">
-              <img src="/shipping/ghn.png" alt="GHN Express" />
-              <img src="/shipping/ninjavan.png" alt="Ninja Van" />
-              <img src="/shipping/ahamove.png" alt="Ahamove" />
-              <img src="/shipping/jst.png" alt="J&T Express" />
+              <img src="/products/Payment/ghn.png" alt="GHN Express" />
+              <img src="/products/Payment/ninja.png" alt="Ninja Van" />
+              <img src="/products/Payment/ahamove.png" alt="Ahamove" />
+              <img src="/products/Payment/j&t.png" alt="J&T Express" />
             </div>
           </div>
 
           <div className="footer-column">
             <h3>Nhóm liên kết</h3>
-            <ul>
+            <ul className="list">
               <li><a href="#timkiem">Tìm kiếm</a></li>
               <li><a href="#gioithieu">Giới thiệu</a></li>
               <li><a href="#doitra">Chính sách đổi trả</a></li>

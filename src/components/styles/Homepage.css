@@ -427,6 +427,32 @@ h2::after {
   width: 22%;
 }
 
+.footer-column .list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column .list li {
+  margin: 8px 0;
+}
+
+/* CSS liên kết */
+.footer-column .list li a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+/* Hiệu ứng hover */
+.footer-column .list li a:hover {
+  color: #ff6b6b;
+  transform: translateX(5px);
+}
+
 .footer-column h3 {
   font-size: 18px;
   color: red;
@@ -471,6 +497,37 @@ h2::after {
   width: 150px;
   margin-top: 15px;
 }
+
+/* Container chứa icon */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* CSS cho các icon */
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid black; /* Viền đen giống ảnh */
+  border-radius: 8px; /* Bo tròn góc */
+  font-size: 20px;
+  color: black;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover hiệu ứng */
+.social-icons a:hover {
+  background-color: black;
+  color: white;
+  transform: scale(1.1);
+}
+
 
 
 /*  Mobile Responsive */
@@ -521,6 +578,17 @@ h2::after {
 }
 
 @media (max-width: 768px) {
+  .footer-column {
+      max-width: 100%;
+      text-align: center;
+  }
+
+  .footer-column .list li a {
+      justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
     .navbar {
         flex-direction: column;
         padding: 15px;
@@ -548,4 +616,15 @@ h2::after {
     .chat-icon svg {
         font-size: 24px;
     }
+}
+
+
+@media (max-width: 768px) {
+  .social-icons {
+      gap: 10px;
+  }
+
+  .social-icons a {
+      font-size: 20px;
+  }
 }

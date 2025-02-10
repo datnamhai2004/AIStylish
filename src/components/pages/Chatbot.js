@@ -65,7 +65,7 @@ const Chatbot = () => {
           </div>
 
           <div className="logo">
-            <h1>Fashion Your Way</h1>
+            <h1>FASHION YOUR WAY WITH AISTYLISH</h1>
           </div>
 
           {/* Nhóm profile và menu icon để chúng sát nhau hơn */}
