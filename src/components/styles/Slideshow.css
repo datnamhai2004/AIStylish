@@ -36,3 +36,14 @@
 .swiper-pagination-bullet-active {
     background: red;
 }
+
+@media (max-width: 768px) {
+    .slideshow-container {
+        max-width: 100%;
+        margin: 10px auto;
+    }
+    .slide-image {
+        height: 300px; /* Giảm chiều cao trên mobile */
+        border-radius: 8px;
+    }
+}

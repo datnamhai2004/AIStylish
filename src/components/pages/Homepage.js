@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Homepage.css";
-import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
-import { IoMenu } from "react-icons/io5";
+import { FaUserCircle, FaShoppingCart, FaFacebook, FaInstagram, FaTwitter, FaTiktok, FaYoutube } from "react-icons/fa";import { IoMenu } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { RiRobot3Line } from "react-icons/ri";
 import ProductItem from "../ProductItems"; // Import component sản phẩm
@@ -60,101 +59,101 @@ const Homepage = () => {
       category: "shirt",
       name: "Áo Phao Nam Nữ Siêu Ấm Dáng Lửng Cổ Cao, Áo Phao Basic Cổ Cao",
       price: "₫159.000",
-      img: "/products/aophao.jpg",
-      hoverImg: "/products/aophaotrang.jpg",
+      img: "/products/Ao/AoKhoac/aophao.jpg",
+      hoverImg: "/products/Ao/AoKhoac/aophaotrang.jpg",
     },
     {
       id: 2,
       category: "shirt",
       name: "Aokong Đồng phục bóng chày Mỹ nam dáng rộng",
       price: "₫249.000",
-      img: "/products/aobongchaytrang.jpg",
-      hoverImg: "/products/aobongchayden.jpg",
+      img: "/products/Ao/AoKhoac/aobongchaytrang.jpg",
+      hoverImg: "/products/Ao/AoKhoac/aobongchayden.jpg",
     },
     {
       id: 3,
       category: "shirt",
       name: "Áo Khoác nỉ ,áo hoodie nỉ Lông Cừu Dày Dặn Phối Kẻ Sọc Tay, Phong Cách Hàn Quốc ",
       price: "₫139.000",
-      img: "/products/aolongcuutrang.jpg",
-      hoverImg: "/products/aolongcuuden.jpg",
+      img: "/products/Ao/AoKhoac/aolongcuutrang.jpg",
+      hoverImg: "/products/Ao/AoKhoac/aolongcuuden.jpg",
     },
     {
       id: 4,
       category: "shirt",
       name: "Áo Khoác Nam Hoodie Mũ Liền Khóa Kéo Chất Nỉ Bông Dày Dặn Họa Tiết In Chữ Thời Trang Zenkonu",
       price: "₫160.200",
-      img: "/products/aohoodiexam.jpg",
-      hoverImg: "/products/aohoodieden.jpg",
+      img: "/products/Ao/AoKhoac/aohoodiexam.jpg",
+      hoverImg: "/products/Ao/AoKhoac/aohoodieden.jpg",
     },
     {
       id: 5,
       category: "trouser",
       name: "Quần jeans baggy nam ống suông rộng màu xanh, đen vải bò dày dặn",
       price: "₫155.000",
-      img: "/products/quanjeanbaggyden1.jpg",
-      hoverImg: "/products/quanjeanbaggyden.jpg",
+      img: "/products/Quan/QuanDai/quanjeanbaggyden1.jpg",
+      hoverImg: "/products/Quan/QuanDai/quanjeanbaggyden.jpg",
     },
     {
       id: 6,
       category: "trouser",
       name: "Quần ống rộng chất nỉ dáng suông cao cấp thêu chữ unisex - Quần thể thao nam nữ dày dặn không xù co giãn thoải mái",
       price: "₫139.000",
-      img: "/products/quanongrongtrang.jpg",
-      hoverImg: "/products/quanongrongden.jpg",
+      img: "/products/Quan/QuanDai/quanongrongtrang.jpg",
+      hoverImg: "/products/Quan/QuanDai/quanongrongden.jpg",
     },
     {
       id: 7,
       category: "trouser",
       name: "Quần kaki túi hộp tặng kèm dây xích siêu truất, quần jogger bo chun phong cách Unisex",
       price: "₫134.000",
-      img: "/products/quankaki.jpg",
-      hoverImg: "/products/quankaki1.jpg",
+      img: "/products/Quan/QuanDai/quankaki.jpg",
+      hoverImg: "/products/Quan/QuanDai/quankaki1.jpg",
     },
     {
       id: 8,
       category: "trouser",
       name: "Quần Suông Lót Lông Kẻ Caro Ống Rộng Unisex Nam Nữ",
       price: "₫59.000",
-      img: "/products/quansuongden.jpg",
-      hoverImg: "/products/quansuong1.jpg",
+      img: "/products/Quan/QuanDai/quansuongden.jpg",
+      hoverImg: "/products/Quan/QuanDai/quansuong1.jpg",
     },
     {
       id: 9,
       category: "short",
       name: "Quần Short Unisex Teelab Local Brand Vải Cotton Form Oversize Special Collection Premium",
       price: "₫37.900",
-      img: "/products/shortunisex.jpg",
-      hoverImg: "/products/shortunisextrang.jpg",
+      img: "/products/Quan/QuanShort/shortunisex.jpg",
+      hoverImg: "/products/Quan/QuanShort/shortunisextrang.jpg",
     },
     {
       id: 10,
       category: "short",
       name: "Quần short jean nữ rách đẹp lưng cao",
       price: "₫59.000",
-      img: "/products/shortjeannutrang.jpg",
-      hoverImg: "/products/shortjeannuden.jpg",
+      img: "/products/Quan/QuanShort/shortjeannutrang.jpg",
+      hoverImg: "/products/Quan/QuanShort/shortjeannuden.jpg",
     },
     {
       id: 11,
       category: "short",
       name: "Quần short jean nam rách vá da chất bò cotton cao cấp",
       price: "₫139.000",
-      img: "/products/shortjeanrachgoiden.jpg",
-      hoverImg: "/products/shortjeanrachgoitrang.jpg",
+      img: "/products/Quan/QuanShort/shortjeanrachgoiden.jpg",
+      hoverImg: "/products/Quan/QuanShort/shortjeanrachgoitrang.jpg",
     },
     {
       id: 12,
       category: "short",
       name: "Quần Short Unisex Basic Thể Thao Phong Cách Hàn Quốc",
       price: "₫59.900",
-      img: "/products/shortunisexbasictrang.jpg",
-      hoverImg: "/products/shortunisexbasicden.jpg",
+      img: "/products/Quan/QuanShort/shortunisexbasictrang.jpg",
+      hoverImg: "/products/Quan/QuanShort/shortunisexbasicden.jpg",
     }
   ];
 
   return (
-    <div className="app">
+    <div className="app" style={{ overflowX: "hidden" }}>
       {/* Thanh điều hướng */}
       <nav className={`navbar ${isNavVisible ? "" : "hidden"}`}>
       <div className="nav-left">
@@ -205,7 +204,7 @@ const Homepage = () => {
           )}
         </div>
 
-        <span className="brand-name">Fashion Your Way</span>
+        <span className="brand-name">FASHION YOUR WAY</span>
 
         <div className="nav-right">
           <div className="search-bar">
@@ -259,6 +258,70 @@ const Homepage = () => {
           <RiRobot3Line />
         </div>
       </div>
+
+       {/* FOOTER */}
+       <footer className="footer">
+        <div className="footer-container">
+          <div className="footer-column">
+            <h3>Thời trang nam TORANO</h3>
+            <p>
+              Hệ thống thời trang cho phái mạnh hàng đầu Việt Nam, hướng tới phong cách nam tính, lịch lãm và trẻ trung.
+            </p>
+            <div className="social-icons">
+              <FaFacebook />
+              <FaInstagram />
+              <FaTwitter />
+              <FaTiktok />
+              <FaYoutube />
+            </div>
+            <h4>Phương thức thanh toán</h4>
+            <div className="payment-methods">
+              <img src="/products/Payment/VNPAY.png" alt="VNPay" />
+              <img src="/products/Payment/zalopay.png" alt="ZaloPay" />
+              <img src="/products/Payment/moca.jpg" alt="Moca" />
+              <img src="/products/Payment/Kredivo.png" alt="Kredivo" />
+              <img src="/products/Payment/Napas.png" alt="Napas" />
+              <img src="/products/Payment/VNPAY.png" alt="Visa" />
+            </div>
+          </div>
+
+          <div className="footer-column">
+            <h3>Thông tin liên hệ</h3>
+            <p><strong>Địa chỉ:</strong> Tầng 8, tòa nhà Ford, số 313 Trường Chinh, quận Thanh Xuân, Hà Nội</p>
+            <p><strong>Điện thoại:</strong> 0964942121</p>
+            <p><strong>Fax:</strong> 0904636356</p>
+            <p><strong>Email:</strong> cskh@torano.vn</p>
+            <h4>Phương thức vận chuyển</h4>
+            <div className="shipping-methods">
+              <img src="/shipping/ghn.png" alt="GHN Express" />
+              <img src="/shipping/ninjavan.png" alt="Ninja Van" />
+              <img src="/shipping/ahamove.png" alt="Ahamove" />
+              <img src="/shipping/jst.png" alt="J&T Express" />
+            </div>
+          </div>
+
+          <div className="footer-column">
+            <h3>Nhóm liên kết</h3>
+            <ul>
+              <li><a href="#timkiem">Tìm kiếm</a></li>
+              <li><a href="#gioithieu">Giới thiệu</a></li>
+              <li><a href="#doitra">Chính sách đổi trả</a></li>
+              <li><a href="#baomat">Chính sách bảo mật</a></li>
+              <li><a href="#tuyendung">Tuyển dụng</a></li>
+              <li><a href="#lienhe">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-column">
+            <h3>Đăng ký nhận tin</h3>
+            <p>Để cập nhật những sản phẩm mới, nhận thông tin ưu đãi đặc biệt và thông tin giảm giá khác.</p>
+            <div className="subscribe">
+              <input type="email" placeholder="Nhập email của bạn" />
+              <button>Đăng ký</button>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

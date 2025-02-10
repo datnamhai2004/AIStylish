@@ -28,10 +28,13 @@
 }
 
 .brand-name {
-    color: #fff;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  flex: 1; /* Giúp tiêu đề tự căn giữa */
+  display: flex;
+  justify-content: center;
 }
 
 .nav-right {
@@ -407,6 +410,69 @@ h2::after {
     color: white;
 }
 
+/* Footer */
+.footer {
+  background-color: #f8f8f8;
+  padding: 40px 80px;
+  color: #333;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-column {
+  width: 22%;
+}
+
+.footer-column h3 {
+  font-size: 18px;
+  color: red;
+  margin-bottom: 10px;
+}
+
+.footer-column p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  font-size: 20px;
+}
+
+.payment-methods img, .shipping-methods img {
+  width: 50px;
+  margin: 5px;
+}
+
+.subscribe {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.subscribe input {
+  padding: 8px;
+  width: 70%;
+}
+
+.subscribe button {
+  padding: 8px;
+  background-color: red;
+  color: white;
+  border: none;
+}
+
+.certification {
+  width: 150px;
+  margin-top: 15px;
+}
+
+
 /*  Mobile Responsive */
 @media (max-width: 1024px) {
     .product-item {
@@ -423,6 +489,36 @@ h2::after {
   }
 }
 
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+      padding: 10px;
+  }
+  .brand-name {
+      font-size: 18px;
+      text-align: center;
+      padding-left: 0;
+  }
+  .nav-right {
+      gap: 15px;
+  }
+}
+
+/* 🌟 RESPONSIVE PRODUCT LIST 📱 */
+@media (max-width: 768px) {
+  .product-list {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+  }
+  .product-item {
+      width: 90%;
+      height: auto;
+  }
+  .product-item img {
+      height: 250px;
+  }
+}
 
 @media (max-width: 768px) {
     .navbar {
