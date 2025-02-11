@@ -1,59 +1,84 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/Chatbot.css";
-import { TiThMenu } from "react-icons/ti";
 import logo from "../../assets/logo.png";
-import { FaUserCircle } from "react-icons/fa";
-import { IoSend, IoArrowBackCircle  } from "react-icons/io5";
+import { IoSend, IoArrowBackCircle } from "react-icons/io5";
 import { RiImageAddFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import Login from "../pages/Login";
+
 const Chatbot = () => {
-    const [messages, setMessages] = useState([]); // Lưu trữ tin nhắn
-    const [inputMessage, setInputMessage] = useState(""); // Lưu nội dung nhập
-    const [selectedImage, setSelectedImage] = useState(null); // Lưu ảnh đã chọn
-    const navigate = useNavigate(); 
-    const handleMenuClick = () => {
-      console.log("Menu icon clicked!");
+    const [messages, setMessages] = useState([]);
+    const [inputMessage, setInputMessage] = useState("");
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [userData, setUserData] = useState(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const toggleLoginForm = () => setIsLoginOpen(!isLoginOpen);
+
+
+    // Lấy dữ liệu user từ localStorage
+    useEffect(() => {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (storedUser) {
+        setUserData(storedUser);
+      }
+    }, []);
+
+    const toggleDropdown = () => {
+      setIsDropdownOpen(!isDropdownOpen);
     };
-  
-    const handleProfileClick = () => {
-      console.log("Profile icon clicked!");
+
+    const handleLogout = () => {
+      localStorage.removeItem("user");
+      setUserData(null);
+      setIsDropdownOpen(false);
     };
 
     const handleBackClick = () => {
       navigate("/");
     };
-  
-    // Gửi tin nhắn
+
     const handleSendClick = () => {
-      if (inputMessage.trim() === "" && !selectedImage) return; // Không gửi tin nhắn rỗng và ảnh trống
+      if (inputMessage.trim() === "" && !selectedImage) return;
   
-      // Thêm tin nhắn người dùng
       const userMessage = {
         text: inputMessage,
         sender: "user",
-        image: selectedImage, // Thêm ảnh nếu có
+        image: selectedImage,
       };
       setMessages((prev) => [...prev, userMessage]);
   
-      // Tạo phản hồi từ AI
       const aiMessage = { text: "Đây là phản hồi từ AI", sender: "ai" };
       setMessages((prev) => [...prev, aiMessage]);
   
-      // Xóa nội dung nhập và ảnh đã chọn sau khi gửi
       setInputMessage("");
       setSelectedImage(null);
     };
-  
+
     const handleImageUpload = (e) => {
       const file = e.target.files[0];
       if (file) {
-        // Tạo URL tạm thời cho ảnh
         const imageUrl = URL.createObjectURL(file);
-        setSelectedImage(imageUrl); // Lưu URL của ảnh vào state
+        setSelectedImage(imageUrl);
       }
     };
-    
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setIsDropdownOpen(false);
+        }
+      };
   
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
     return (
       <div className="chatbot-container">
         {/* Header */}
@@ -68,21 +93,45 @@ const Chatbot = () => {
             <h1>FASHION YOUR WAY WITH AISTYLISH</h1>
           </div>
 
-          {/* Nhóm profile và menu icon để chúng sát nhau hơn */}
+          {/* Profile + Dropdown Menu */}
           <div className="right-icons">
-            <div className="profile-icon" onClick={handleProfileClick}>
-              <FaUserCircle />
-            </div>
-            <div className="menu-icon" onClick={handleMenuClick}>
-              <TiThMenu />
+            <div className="profile-icon" ref={dropdownRef}>
+              {userData ? (
+                <>
+                  <img 
+                    src={userData.photoURL} 
+                    alt="User Avatar" 
+                    className="user-avatar"
+                    onClick={toggleDropdown} 
+                  />
+                  {isDropdownOpen && (
+                    <div className="dropdown-content">
+                      <ul>
+                        <li onClick={() => navigate("/profile")}>Thông tin cá nhân</li>
+                        <li onClick={() => navigate("/history")}>Lịch sử mua</li>
+                        <li onClick={handleLogout}>Đăng xuất</li>
+                      </ul>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <span className="login-text" onClick={toggleLoginForm}>Sign in</span>
+              )}
             </div>
           </div>
         </header>
+        {/* Hiển thị form đăng nhập khi nhấn vào "Đăng nhập" */}
+        {isLoginOpen && (
+          <div className="login-overlay">
+            <div className="login-container">
+              <button className="close-btn" onClick={toggleLoginForm}>✖</button>
+              <Login setUserData={setUserData} closeLogin={toggleLoginForm} />
+            </div>
+          </div>
+        )}
 
-  
         {/* Chat Content */}
         <main className="chat-area">
-          {/* Message Display Area */}
           <div className="chat-box">
             {messages.map((message, index) => (
               <div
@@ -101,35 +150,34 @@ const Chatbot = () => {
               </div>
             ))}
           </div>
-  
+
           {/* Message Input Area */}
           <div className="input-area">
             <div className="add-image-icon" onClick={() => document.getElementById('image-upload').click()}>
               <RiImageAddFill />
             </div>
-  
+
             <input
               id="image-upload"
               type="file"
               accept="image/*"
-              style={{ display: 'none' }}  // Ẩn input file
+              style={{ display: 'none' }}
               onChange={handleImageUpload}
             />
-  
-            {/* Hiển thị ảnh đã chọn trong input */}
+
             {selectedImage && (
               <div className="image-preview">
                 <img src={selectedImage} alt="Selected" style={{ maxWidth: '100px', maxHeight: '100px' }} />
               </div>
             )}
-  
+
             <input
               placeholder="Message AI Stylist"
               className="message-input"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
             />
-  
+
             <div className="send-container" onClick={handleSendClick}>
               <IoSend className="send-icon" />
             </div>

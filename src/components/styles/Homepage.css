@@ -150,6 +150,95 @@
   color: #007bff;
 }
 
+/* 🌟 Chữ "Đăng nhập" */
+.login-text {
+  font-size: 16px; /* Kích thước chữ */
+  text-align: center;
+  font-weight: bold; /* In đậm */
+  color: #ffffff; /* Màu chữ mặc định */
+  cursor: pointer; /* Biến con trỏ thành hình bàn tay khi hover */
+  border-radius: 5px; /* Bo góc nhẹ */
+  transition: background 0.3s ease, color 0.3s ease; /* Hiệu ứng hover */
+}
+
+/* 🎨 Hiệu ứng khi hover */
+.login-text:hover {
+  text-decoration: underline;
+}
+
+/* 📱 Responsive: Điều chỉnh cho màn hình nhỏ */
+@media (max-width: 480px) {
+  .login-text {
+      font-size: 12px; /* Nhỏ hơn trên điện thoại */
+      padding: 6px 10px;
+  }
+}
+
+
+/* 🌟 Avatar nhỏ hơn trong navbar */
+.user-avatar {
+  width: 35px !important;  /* Giảm kích thước avatar */
+  height: 35px !important; /* Giảm kích thước avatar */
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  object-fit: cover; /* Giữ ảnh không bị méo */
+}
+.user-avatar:hover {
+  transform: none;
+}
+
+/* 📌 Dropdown menu */
+.dropdown-content {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  width: 180px;
+  z-index: 1000;;
+  padding: 10px 0;
+}
+
+.dropdown-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-content ul li {
+  padding: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+  transition: background 0.3s ease;
+  text-align: left;
+  padding-left: 15px;
+}
+
+.dropdown-content ul li:hover {
+  background: #f0f0f0;
+}
+
+/* 📱 Responsive */
+@media (max-width: 480px) {
+  .user-avatar {
+      width: 35px;
+      height: 35px;
+  }
+
+  .dropdown-content {
+      width: 150px;
+  }
+
+  .dropdown-content ul li {
+      font-size: 13px;
+      padding: 10px;
+  }
+}
+
+
 /* Tiêu đề danh mục sản phẩm */
 h2 {
   font-size: 24px;

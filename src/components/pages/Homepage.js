@@ -1,17 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Homepage.css";
-import { FaUserCircle, FaShoppingCart, FaFacebook, FaInstagram, FaTwitter, FaTiktok, FaYoutube } from "react-icons/fa";import { IoMenu } from "react-icons/io5";
+import { FaShoppingCart, FaFacebook, FaInstagram, FaTwitter, FaTiktok, FaYoutube } from "react-icons/fa";import { IoMenu } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { RiRobot3Line } from "react-icons/ri";
 import ProductItem from "../ProductItems"; // Import component sản phẩm
 import Slideshow from "../Slideshow";
+import Login from "../pages/Login";
 
 const Homepage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
   const menuRef = useRef(null);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
-  const [isNavVisible, setIsNavVisible] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -21,6 +25,40 @@ const Homepage = () => {
   const handleSubmenu = (category) => {
     setActiveSubmenu(activeSubmenu === category ? null : category);
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUserData(null);
+    setIsDropdownOpen(false);
+  };
+
+  // Đóng dropdown khi click ra ngoài
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUserData(storedUser);
+    }
+  }, []);
+
+  const toggleLoginForm = () => setIsLoginOpen(!isLoginOpen);
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -37,21 +75,8 @@ const Homepage = () => {
     };
   }, []);
 
-  const lastScrollY = useRef(window.scrollY);
 
-  const handleScroll = () => {
-    if (window.scrollY > lastScrollY.current) {
-      setIsNavVisible(false);
-    } else {
-      setIsNavVisible(true);
-    }
-    lastScrollY.current = window.scrollY;
-  };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const products = [
     {
@@ -155,7 +180,7 @@ const Homepage = () => {
   return (
     <div className="app" style={{ overflowX: "hidden" }}>
       {/* Thanh điều hướng */}
-      <nav className={`navbar ${isNavVisible ? "" : "hidden"}`}>
+      <nav className="navbar">
       <div className="nav-left">
           <div className="menu-icon" onClick={toggleMenu}>
             <IoMenu />
@@ -208,22 +233,51 @@ const Homepage = () => {
 
         <div className="nav-right">
           <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search for products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+            <input type="text" placeholder="Tìm kiếm sản phẩm..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
             <button>&#128269;</button>
           </div>
+
           <div className="cart-icon">
             <FaShoppingCart />
           </div>
-          <div className="profile-icon">
-            <FaUserCircle />
+
+          {/* Nếu đã đăng nhập, hiển thị avatar */}
+          <div className="profile-icon" ref={dropdownRef}>
+            {userData ? (
+              <>
+                <img 
+                  src={userData.photoURL} 
+                  alt="User Avatar" 
+                  className="user-avatar"
+                  onClick={toggleDropdown} 
+                />
+                {isDropdownOpen && (
+                  <div className="dropdown-content">
+                    <ul>
+                      <li onClick={() => navigate("/profile")}>Thông tin cá nhân</li>
+                      <li onClick={() => navigate("/history")}>Lịch sử mua</li>
+                      <li onClick={handleLogout}>Đăng xuất</li>
+                    </ul>
+                  </div>
+                )}
+              </>
+            ) : (
+              <span className="login-text" onClick={toggleLoginForm}>Sign in</span>
+            )}
           </div>
         </div>
       </nav>
+
+      {/* Hiển thị form đăng nhập khi nhấn vào "Đăng nhập" */}
+      {isLoginOpen && (
+        <div className="login-overlay">
+          <div className="login-container">
+            <button className="close-btn" onClick={toggleLoginForm}>✖</button>
+            <Login setUserData={setUserData} closeLogin={toggleLoginForm} />
+          </div>
+        </div>
+      )}
+
 
       {/* Slideshow */}
       <Slideshow />

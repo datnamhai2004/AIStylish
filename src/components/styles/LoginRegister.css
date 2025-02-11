@@ -1,125 +1,157 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
+/* 🌟 Overlay để làm mờ nền khi mở form */
+.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Làm mờ nền */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f3f4f6;
+  justify-content: center; /* ✅ Canh giữa theo chiều ngang */
+  align-items: center; /* ✅ Canh giữa theo chiều dọc */
+  z-index: 1000;
 }
 
-/* Wrapper chứa form với khung viền */
-.wrapper {
-  width: 380px;
-  padding: 20px;
-  background: #fff;
+/* 🌟 FORM ĐĂNG NHẬP */
+.form-box {
+  width: 360px; /* Độ rộng form */
+  background: white;
+  padding: 25px;
   border-radius: 12px;
-  border: 2px solid rgba(0, 0, 0, 0.1); /* Khung viền nhẹ */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
-  transition: 0.3s ease;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Hiệu ứng khi hover vào form */
-.wrapper:hover {
-  border-color: #1877f2; /* Đổi màu viền khi hover */
-  box-shadow: 0 6px 20px rgba(24, 119, 242, 0.2);
+/* ✖️ Nút đóng form (Dấu X nằm bên trong) */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s ease;
 }
 
-/* Tiêu đề form */
-h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+.close-button:hover {
+  color: #ff4b4b;
+}
+
+/* 🔤 Tiêu đề Đăng Nhập */
+.form-box h1 {
+  font-size: 22px;
+  font-weight: bold;
   color: #333;
+  margin-bottom: 20px;
 }
 
-/* Nút đăng nhập */
+/* 🆔 Phần hiển thị thông tin người dùng */
+.user-info {
+  text-align: center;
+}
+
+.user-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
+}
+
+.user-info p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 🖼️ Avatar */
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-top: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔵 Đăng nhập bằng Google / Facebook */
 .social-login {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
-.social-login button {
+/* 🎨 Thiết kế nút */
+.google-button, .facebook-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
+  gap: 10px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
+  color: white;
+  width: 100%;
 }
 
-/* Nút Google */
+/* 🎨 Nút Google */
 .google-button {
-  background-color: #ffffff;
+  background: #ff7367;
   color: #333;
-  border: 1px solid #ddd;
+  
 }
 
 .google-button:hover {
-  background-color: #f1f1f1;
+  background: #ff7367;
 }
 
-/* Nút Facebook */
+/* 🎨 Nút Facebook */
 .facebook-button {
-  background-color: #1877f2;
-  color: #fff;
+  background: #60a5ff;
+  color: #333;
+
 }
 
 .facebook-button:hover {
-  background-color: #165dd1;
+  background: #60a5ff;
 }
 
+/* 🖼️ Logo Google & Facebook */
 .social-logo {
-  width: 24px;
-  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
 }
 
-/* Chia cách giữa các phần */
-.divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px 0;
-  color: #777;
-  font-size: 14px;
-  font-weight: bold;
-  position: relative;
+/* 🔄 Hiệu ứng mượt */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.9);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
 }
 
-.divider::before,
-.divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background-color: #ddd;
-  margin: 0 8px;
-}
+/* 📱 Responsive */
+@media (max-width: 480px) {
+  .form-box {
+      width: 90%;
+  }
 
-/* Liên kết chuyển đổi */
-.register-link {
-  font-size: 14px;
-  margin-top: 10px;
-}
+  .google-button, .facebook-button {
+      font-size: 14px;
+      padding: 10px;
+  }
 
-.register-link a {
-  color: #1877f2;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.register-link a:hover {
-  text-decoration: underline;
+  .social-logo {
+      width: 20px;
+      height: 20px;
+  }
 }
