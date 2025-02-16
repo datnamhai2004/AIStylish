@@ -1,0 +1,6 @@
+# Bỏ môi trường ảo (nếu không dùng container như Docker)
+.venv/
+
+# Bỏ API Key bảo mật
+.env
+node_modules
