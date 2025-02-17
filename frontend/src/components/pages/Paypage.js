@@ -96,7 +96,14 @@ const Paypage = () => {
 
   useEffect(() => {
     const storedOrder = JSON.parse(localStorage.getItem("cart")) || [];
-    setOrderItems(storedOrder);
+  
+    // Kiểm tra nếu giỏ hàng có dữ liệu, giữ nguyên totalPrice nếu đã có, nếu không thì tính lại
+    const updatedOrder = storedOrder.map((item) => ({
+      ...item,
+      totalPrice: item.totalPrice || (parseInt(item.price.replace(/[₫,.]/g, ""), 10) * item.quantity),
+    }));
+  
+    setOrderItems(updatedOrder);
   }, []);
 
   const totalAmount = orderItems.reduce((total, item) => total + item.totalPrice, 0);
@@ -118,11 +125,17 @@ const Paypage = () => {
       alert("Vui lòng nhập đầy đủ thông tin giao hàng!");
       return;
     }
-
+  
     alert(`Thanh toán thành công! Cảm ơn bạn đã mua hàng.`);
+  
+    // 🛠 Xóa dữ liệu giỏ hàng sau khi thanh toán
     localStorage.removeItem("cart");
+    setOrderItems([]); // Cập nhật UI để không còn sản phẩm nào
+  
+    // 🛠 Điều hướng về trang chủ
     navigate("/");
   };
+  
 
   return (
     <div className="paypage-container">
@@ -165,19 +178,20 @@ const Paypage = () => {
 
         {/* GIỎ HÀNG */}
         <div className="order-summary">
-          <h2>Đơn hàng của bạn</h2>
-          <ul className="order-list">
-            {orderItems.map((item, index) => (
-              <li key={index} className="order-item">
-                <img src={item.img} alt={item.name} className="order-image" />
-                <div className="order-info">
-                  <p className="order-name">{item.name}</p>
-                  <p className="order-price">Giá: {item.price}</p>
-                  <p className="order-total">Tổng: ₫{item.totalPrice.toLocaleString()}</p>
+        <h2>Đơn hàng của bạn</h2>
+        <ul className="order-list">
+         {orderItems.map((item, index) => (
+            <li key={index} className="order-item">
+             <img src={item.img} alt={item.name} className="order-image" />
+              <div className="order-info">
+                <p className="order-name">{item.name}</p>
+                <p className="order-price">Giá: {item.price}</p>
+                <p className="order-quantity">Số lượng: {item.quantity}</p>
+                <p className="order-total">Tổng: ₫{item.totalPrice.toLocaleString()}</p>
                 </div>
-              </li>
+            </li>
             ))}
-          </ul>
+        </ul>
 
           {/* CHỌN PHƯƠNG THỨC THANH TOÁN */}
           <h3>Phương thức thanh toán</h3>

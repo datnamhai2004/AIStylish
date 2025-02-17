@@ -21,10 +21,12 @@ const Cart = () => {
       alert("Giỏ hàng trống! Hãy thêm sản phẩm trước khi thanh toán.");
       return;
     }
-    
-    localStorage.removeItem("cart"); // Xóa giỏ hàng sau khi thanh toán
-    setCartItems([]); // Cập nhật UI
-    navigate("/pay"); // Quay lại trang chủ sau khi thanh toán
+  
+    // 🛒 Lưu giỏ hàng vào localStorage để dùng trong trang thanh toán
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  
+    // 👉 Chuyển sang trang thanh toán
+    navigate("/pay");
   };
 
   const increaseQuantity = (id) => {
