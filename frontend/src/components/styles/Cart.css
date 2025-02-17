@@ -1,6 +1,4 @@
-
-
-/* Cart.css */
+/* Cart tổng thể */
 .cart-page {
   max-width: 800px;
   margin: auto;
@@ -11,69 +9,18 @@
   text-align: center;
 }
 
-
-.notification {
-  position: fixed;
-  top: 100px;
-  right: 20px;
-  background-color: #28a745;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  animation: fadeInOut 3s ease-in-out;
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translateX(50px); }
-  10% { opacity: 1; transform: translateX(0); }
-  90% { opacity: 1; transform: translateX(0); }
-  100% { opacity: 0; transform: translateX(50px); }
-}
-
 .title h2 {
   color: #333;
   margin-bottom: 20px;
   margin-left: 0;
 }
 
+/* 🛒 Sản phẩm trong giỏ hàng */
 .cart-list {
   list-style: none;
   padding: 0;
 }
 
-.empty-cart-message {
-  color: rgba(0, 0, 0, 0.5); /* Màu trắng mờ */
-  opacity: 0.6; /* Độ trong suốt */
-  font-style: italic; /* Làm cho chữ mềm mại hơn */
-}
-
-.quantity-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.quantity-btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: #ddd;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.quantity-btn:hover {
-  background-color: #ccc;
-}
-
-
-
-/* 🎨 Sản phẩm trong giỏ hàng */
 .cart-item {
   display: flex;
   align-items: center;
@@ -109,16 +56,93 @@
   font-weight: bold;
 }
 
-label {
-  font-weight: bold;
-  margin-right: 5px;
+/* 🔹 Số lượng sản phẩm */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-select {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.quantity-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #ddd;
+  font-size: 16px;
   cursor: pointer;
+  transition: background 0.3s ease;
+  border-radius: 5px;
+}
+
+.quantity-btn:hover {
+  background-color: #ccc;
+}
+
+.quantity-value {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* 🛒 Chọn màu */
+.color-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.color-btn {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+}
+
+.color-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.color-btn.selected {
+  border: 2px solid red;
+}
+
+.color-btn.selected::after {
+  content: "✔";
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+/* 📏 Chọn kích thước */
+.size-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.size-btn {
+  padding: 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.size-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.size-btn.selected {
+  border: 2px solid blue;
 }
 
 /* 🗑 Nút xóa */
@@ -184,29 +208,41 @@ select {
   background: #457b9d;
 }
 
-/* Ẩn input khi ở mobile */
-@media (max-width: 768px) {
-  .search-bar {
-    width: 40px;
-    justify-content: center;
-    padding: 5px;
-  }
-
-  .search-bar input {
-    width: 0;
-    opacity: 0;
-    padding: 0;
-  }
-
-  .search-bar.active {
-    width: 250px;
-    padding: 8px;
-  }
-
-  .search-bar.active input {
-    width: 100%;
-    opacity: 1;
-    padding: 8px;
-  }
+/* ✅ Hiệu ứng thông báo */
+.notification {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeInOut 3s ease-in-out;
 }
 
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(50px); }
+  10% { opacity: 1; transform: translateX(0); }
+  90% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(50px); }
+}
+
+/* 🔵 Responsive cho mobile */
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cart-info {
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .color-options, .size-options {
+    justify-content: center;
+  }
+}

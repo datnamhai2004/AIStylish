@@ -12,11 +12,8 @@ const Cart = () => {
     setCartItems(storedCart);
   }, []);
 
-
-
   // 🛒 Tính tổng giá trị đơn hàng
   const totalAmount = cartItems.reduce((total, item) => total + item.totalPrice, 0);
-
 
   // 🛠 Xử lý khi nhấn "Thanh toán"
   const handleCheckout = () => {
@@ -24,13 +21,12 @@ const Cart = () => {
       alert("Giỏ hàng trống! Hãy thêm sản phẩm trước khi thanh toán.");
       return;
     }
-
-    alert(`Bạn đã thanh toán thành công đơn hàng trị giá ₫${totalAmount.toLocaleString()}`);
+    
     localStorage.removeItem("cart"); // Xóa giỏ hàng sau khi thanh toán
     setCartItems([]); // Cập nhật UI
-    navigate("/"); // Quay lại trang chủ sau khi thanh toán
+    navigate("/pay"); // Quay lại trang chủ sau khi thanh toán
   };
-  
+
   const increaseQuantity = (id) => {
     setCartItems((prevCart) =>
       prevCart.map((item) =>
@@ -40,31 +36,45 @@ const Cart = () => {
       )
     );
   };
-  
+
   const decreaseQuantity = (id) => {
     setCartItems((prevCart) =>
       prevCart.map((item) =>
         item.id === id
-          ? { ...item, quantity: item.quantity - 1, totalPrice: (item.quantity - 1) * parseInt(item.price.replace(/[₫,.]/g, ""), 10) }
+          ? { ...item, quantity: Math.max(1, item.quantity - 1), totalPrice: Math.max(1, item.quantity - 1) * parseInt(item.price.replace(/[₫,.]/g, ""), 10) }
           : item
-      ).filter((item) => item.quantity > 0) // Xóa sản phẩm nếu quantity = 0
+      )
     );
   };
-  
-  
+
   const handleRemoveFromCart = (productId) => {
     setCartItems((prevCart) => {
       const updatedCart = prevCart.filter((item) => item.id !== productId);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       return updatedCart;
     });
-  
-    // Thêm thông báo khi xóa
-    setNotification(`Đã xóa sản phẩm khỏi giỏ hàng!`);
+
+    setNotification("Đã xóa sản phẩm khỏi giỏ hàng!");
     setTimeout(() => setNotification(null), 3000);
   };
-  
-  
+
+  // 🛠 Cập nhật màu sắc của sản phẩm
+  const updateColor = (id, color) => {
+    setCartItems((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id ? { ...item, color } : item
+      )
+    );
+  };
+
+  // 🛠 Cập nhật kích thước của sản phẩm
+  const updateSize = (id, size) => {
+    setCartItems((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id ? { ...item, size } : item
+      )
+    );
+  };
 
   return (
     <div className="cart-page">
@@ -77,25 +87,53 @@ const Cart = () => {
       ) : (
         <>
           <ul className="cart-list">
-          {cartItems.map((item, index) => (
-            <li key={index} className="cart-item">
-              <img src={item.img} alt={item.name} className="cart-image"/>
-              <div className="cart-info">
-                <p className="cart-name">{item.name}</p>
-                <p className="cart-price">Giá: {item.price}</p>
-                <p className="cart-total">Tổng: ₫{item.totalPrice.toLocaleString()}</p>
+            {cartItems.map((item, index) => (
+              <li key={index} className="cart-item">
+                <img src={item.img} alt={item.name} className="cart-image" />
+                <div className="cart-info">
+                  <p className="cart-name">{item.name}</p>
+                  <p className="cart-price">Giá: {item.price}</p>
+                  <p className="cart-total">Tổng: ₫{item.totalPrice.toLocaleString()}</p>
 
-                {/* Tăng/Giảm số lượng */}
-                <div className="quantity-controls">
-                  <button onClick={() => decreaseQuantity(item.id)}>-</button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => increaseQuantity(item.id)}>+</button>
+                  {/* 🟢 Chọn màu sắc */}
+                  <div className="color-options">
+                    <p>Màu sắc:</p>
+                    {["Nâu nhạt", "Đen", "Nâu", "Be"].map((color) => (
+                      <button
+                        key={color}
+                        className={`color-btn ${item.color === color ? "selected" : ""}`}
+                        onClick={() => updateColor(item.id, color)}
+                      >
+                        {color}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* 📏 Chọn kích thước */}
+                  <div className="size-options">
+                    <p>Kích thước:</p>
+                    {["S", "M", "L", "XL"].map((size) => (
+                      <button
+                        key={size}
+                        className={`size-btn ${item.size === size ? "selected" : ""}`}
+                        onClick={() => updateSize(item.id, size)}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* 🔢 Tăng/Giảm số lượng */}
+                  <div className="quantity-controls">
+                    <button onClick={() => decreaseQuantity(item.id)}>-</button>
+                    <span className="quantity-value">{item.quantity}</span>
+                    <button onClick={() => increaseQuantity(item.id)}>+</button>
+                  </div>
+
+                  <button className="remove-btn" onClick={() => handleRemoveFromCart(item.id)}>Xóa</button>
                 </div>
-
-                <button className="remove-btn" onClick={() => handleRemoveFromCart(item.id)}>Xóa</button>
-              </div>
-            </li>
-          ))}
+              </li>
+            ))}
           </ul>
 
           {/* 🛒 Hiển thị tổng tiền */}
@@ -103,19 +141,15 @@ const Cart = () => {
             <h3>Tổng thanh toán: <span className="total-amount">₫{totalAmount.toLocaleString()}</span></h3>
             <button className="checkout-btn" onClick={handleCheckout}>Thanh toán</button>
           </div>
-
         </>
       )}
 
-      {/* 🛠 Nút quay lại trang chủ */}
+      {/* 🔙 Nút quay lại trang chủ */}
       <button className="back-btn" onClick={() => navigate("/")}>Tiếp tục mua sắm</button>
 
       {notification && (
-        <div className="notification">
-          {notification}
-        </div>
+        <div className="notification">{notification}</div>
       )}
-
     </div>
   );
 };
