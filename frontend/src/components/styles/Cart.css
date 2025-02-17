@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+
 /* Cart tổng thể */
 .cart-page {
-  max-width: 800px;
   margin: auto;
   padding: 20px;
   background: #f9f9f9;
@@ -9,19 +11,61 @@
   text-align: center;
 }
 
-.title h2 {
-  color: #333;
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #222;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center; /* Căn giữa */
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
   margin-bottom: 20px;
-  margin-left: 0;
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Gạch chân phía dưới */
+.title::after {
+  content: "";
+  width: 60px; /* Độ dài gạch chân */
+  height: 3px; /* Độ dày gạch */
+  background-color: #e74c3c; /* Màu sắc gạch */
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
 }
 
 /* 🛒 Sản phẩm trong giỏ hàng */
 .cart-list {
-  list-style: none;
+  max-height: 670px; /* Giới hạn chiều cao danh sách */
+  overflow-y: auto; /* Thêm thanh cuộn khi danh sách dài */
   padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-.cart-item {
+/* Tùy chỉnh thanh cuộn cho đẹp hơn */
+.cart-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cart-list::-webkit-scrollbar-thumb {
+  background-color: #888; /* Màu thanh cuộn */
+  border-radius: 10px;
+}
+
+.cart-list::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền của cuộn */
+}
+
+
+.cart-item1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,8 +77,8 @@
 }
 
 .cart-image {
-  width: 80px;
-  height: 80px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -43,6 +87,10 @@
   flex-grow: 1;
   padding-left: 15px;
   text-align: left;
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
 }
 
 .cart-name {
@@ -169,6 +217,15 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
+h3 {
+  font-size: 20px;
+  color: #444;
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+}
+
 .total-amount {
   font-size: 18px;
   font-weight: bold;
@@ -186,6 +243,8 @@
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .checkout-btn:hover {
@@ -202,6 +261,10 @@
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
 }
 
 .back-btn:hover {

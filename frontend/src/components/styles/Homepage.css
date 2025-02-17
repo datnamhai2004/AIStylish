@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -7,17 +6,19 @@
     font-family: 'Poppins', sans-serif;
 }
 .brand-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  font-weight: 700;
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
   color: #333;
   text-transform: uppercase;
 }
 
 .product-item h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 700;
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
   color: #222;
 }
 
@@ -59,40 +60,81 @@
 }
 
 /* Tìm kiếm */
+
+/* 🎯 Container của thanh tìm kiếm */
 .search-bar {
   display: flex;
   align-items: center;
-  background: #fff;
-  border-radius: 25px;
-  padding: 8px 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 5px;
+  background-color: white;
+  width: auto;
+  transition: width 0.3s ease;
 }
 
+/* 🛠 Input bị ẩn mặc định trên mobile */
 .search-bar input {
   flex: 1;
-  border: none;
-  outline: none;
   font-size: 12px;
   padding: 4px;
-  border-radius: 20px;
+  border-radius: 25px;
+  height: 10px;
+  width: 0;
+  margin-top: 5px;
+  border: none;
+  outline: none;
+  transition: width 0.3s ease, padding 0.3s ease;
+  opacity: 0;
 }
 
+.icon-search{
+  left: 0;
+}
+
+/* 🛠 Khi mở tìm kiếm, input hiện ra */
+.search-bar.active input {
+  width: 180px; /* Kích thước mở rộng */
+  padding: 5px;
+  opacity: 1;
+  margin-top: 10px;
+
+}
+
+/* 🛠 Button search icon */
 .search-bar button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s;
+  color: black;
+  
 }
 
-.search-bar button:hover {
-  color: #1d3557; /* Màu xanh nhạt khi hover */
+/* 🌟 Mobile: Ẩn input mặc định, chỉ hiện icon */
+@media (max-width: 768px) {
+  .search-bar {
+    width: 40px;
+    justify-content: center;
+  }
+
+  .search-bar input {
+    display: none;
+  }
+
+  .search-bar.active {
+    width: auto;
+    justify-content: flex-start;
+  }
+
+  .search-bar.active input {
+    display: block;
+  }
 }
+
 
 
 /* Icons (Giỏ hàng, hồ sơ, menu) */
@@ -121,14 +163,43 @@
 .cart-dropdown {
   position: absolute;
   right: 0;
-  top: 50px;
-  width: 300px;
+  top: 70px;
+  width: 320px;
   background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 15px;
   border-radius: 5px;
   z-index: 1000;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  text-transform: uppercase;
 }
+
+/* Giới hạn chiều cao danh sách sản phẩm và thêm thanh cuộn */
+.cart-dropdown ul {
+  max-height: 300px; /* Giới hạn chiều cao */
+  overflow-y: auto; /* Thêm thanh cuộn khi danh sách dài */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Tùy chỉnh thanh cuộn cho đẹp hơn */
+.cart-dropdown ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cart-dropdown ul::-webkit-scrollbar-thumb {
+  background-color: #888; /* Màu cuộn */
+  border-radius: 10px;
+}
+
+.cart-dropdown ul::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền cuộn */
+}
+
 
 .cart-item {
   display: flex;
@@ -406,8 +477,8 @@
 
 
 /* Tiêu đề danh mục sản phẩm */
-h2 {
-  font-size: 24px;
+.title3 {
+  font-size: 20px;
   font-weight: 700;
   color: #222;
   text-transform: uppercase;
@@ -415,15 +486,20 @@ h2 {
   text-align: center; /* Căn giữa */
   position: relative;
   display: inline-block;
-  margin-left: 47%;
+  margin-left: 45%;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-weight: bold;
+    font-family: "Lexend", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: #444;
 }
 
 /* Gạch chân phía dưới */
-h2::after {
+.title3::after {
   content: "";
-  width: 60px; /* Độ dài gạch chân */
+  width:100px; /* Độ dài gạch chân */
   height: 3px; /* Độ dày gạch */
   background-color: #e74c3c; /* Màu sắc gạch */
   position: absolute;
@@ -432,8 +508,6 @@ h2::after {
   transform: translateX(-50%);
   border-radius: 2px;
 }
-
-
 
 /* Danh sách sản phẩm */
 .product-list {
