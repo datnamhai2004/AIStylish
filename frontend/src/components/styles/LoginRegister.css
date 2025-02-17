@@ -1,0 +1,157 @@
+/* 🌟 Overlay để làm mờ nền khi mở form */
+.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Làm mờ nền */
+  display: flex;
+  justify-content: center; /* ✅ Canh giữa theo chiều ngang */
+  align-items: center; /* ✅ Canh giữa theo chiều dọc */
+  z-index: 1000;
+}
+
+/* 🌟 FORM ĐĂNG NHẬP */
+.form-box {
+  width: 360px; /* Độ rộng form */
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* ✖️ Nút đóng form (Dấu X nằm bên trong) */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #ff4b4b;
+}
+
+/* 🔤 Tiêu đề Đăng Nhập */
+.form-box h1 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* 🆔 Phần hiển thị thông tin người dùng */
+.user-info {
+  text-align: center;
+}
+
+.user-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
+}
+
+.user-info p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 🖼️ Avatar */
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-top: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔵 Đăng nhập bằng Google / Facebook */
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 🎨 Thiết kế nút */
+.google-button, .facebook-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  width: 100%;
+}
+
+/* 🎨 Nút Google */
+.google-button {
+  background: #ffffff;
+  color: #333;
+  border: 0.5px solid #000;
+}
+
+.google-button:hover {
+  background: #e0e0e0;
+}
+
+/* 🎨 Nút Facebook */
+.facebook-button {
+  background: #ffffff;
+  color: #333;
+  border: 0.5px solid #000;
+}
+
+.facebook-button:hover {
+  background: #e0e0e0;
+}
+
+/* 🖼️ Logo Google & Facebook */
+.social-logo {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+}
+
+/* 🔄 Hiệu ứng mượt */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.9);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+/* 📱 Responsive */
+@media (max-width: 480px) {
+  .form-box {
+      width: 90%;
+  }
+
+  .google-button, .facebook-button {
+      font-size: 14px;
+      padding: 10px;
+  }
+
+  .social-logo {
+      width: 20px;
+      height: 20px;
+  }
+}
