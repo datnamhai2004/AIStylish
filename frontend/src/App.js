@@ -5,6 +5,7 @@ import Chatbot from "./components/pages/Chatbot";
 import Profile from "./components/pages/Profile";  // Thêm trang thông tin cá nhân
 import History from "./components/pages/History";  // Thêm trang lịch sử mua hàng
 import Cart from "./components/pages/Cart";
+import Paypage from './components/pages/Paypage';
 
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/chatbot" element={<Chatbot />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/pay" element={<Paypage />} />
         <Route path="/profile" element={<Profile />} />  {/* Thêm đường dẫn đến trang thông tin cá nhân */}
         <Route path="/history" element={<History />} />  {/* Thêm đường dẫn đến trang lịch sử mua */}
       </Routes>

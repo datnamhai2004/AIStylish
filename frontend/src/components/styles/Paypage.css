@@ -1,0 +1,204 @@
+/* ✅ Tổng quan trang thanh toán */
+.paypage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #f9f9f9;
+  }
+  
+  .paypage {
+    display: flex;
+    justify-content: space-between;
+    max-width: 900px;
+    width: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ✅ Phần thông tin giao hàng */
+  .customer-info {
+    width: 48%;
+  }
+  
+  .customer-info h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  input:read-only {
+    background: #f0f0f0;
+    cursor: not-allowed;
+  }
+  
+  select {
+    cursor: pointer;
+  }
+  
+  /* ✅ Phần giỏ hàng */
+  .order-summary {
+    width: 48%;
+  }
+  
+  .order-summary h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .order-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .order-item {
+    display: flex;
+    align-items: center;
+    background: #f8f8f8;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .order-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .order-info {
+    flex-grow: 1;
+  }
+  
+  .order-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .order-price {
+    color: #e63946;
+    font-weight: bold;
+  }
+  
+  .order-total {
+    font-weight: bold;
+    color: #ff9800;
+  }
+  
+  /* ✅ Phương thức vận chuyển */
+  .shipping-options {
+    margin-top: 10px;
+  }
+  
+  .shipping-options label {
+    display: block;
+    margin: 5px 0;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* ✅ Phương thức thanh toán */
+  .payment-method {
+    margin-top: 10px;
+  }
+  
+  .payment-method label {
+    display: block;
+    font-size: 16px;
+    margin: 5px 0;
+    cursor: pointer;
+  }
+  
+  /* ✅ Hiển thị mã QR khi chọn thanh toán online */
+  .qr-payment {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .qr-payment p {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .qr-payment img {
+    width: 150px;
+    height: 150px;
+    margin-top: 5px;
+  }
+  
+  /* ✅ Tổng thanh toán */
+  .payment-summary {
+    margin-top: 20px;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff9800;
+  }
+  
+  /* ✅ Nút xác nhận thanh toán */
+  .confirm-payment-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .confirm-payment-btn:hover {
+    background-color: #e68900;
+  }
+  
+  /* ✅ Nút quay lại trang chủ */
+  .back-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #1d3557;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+  }
+  
+  .back-btn:hover {
+    background: #457b9d;
+  }
+  
+  /* ✅ Responsive cho thiết bị nhỏ */
+  @media (max-width: 768px) {
+    .paypage {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .customer-info, .order-summary {
+      width: 100%;
+    }
+  }
+  
