@@ -1,0 +1,91 @@
+/* 🛒 Trang giỏ hàng */
+.cart-page {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* 🛍 Tiêu đề */
+  .cart-page h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* 🛒 Danh sách sản phẩm */
+  .cart-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* 🎨 Sản phẩm trong giỏ hàng */
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  /* 🖼 Ảnh sản phẩm */
+  .cart-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  /* 📝 Thông tin sản phẩm */
+  .cart-info {
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+  }
+  
+  /* 🎨 Chọn màu */
+  .cart-info select {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  /* 🗑 Nút xóa */
+  .remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .remove-btn:hover {
+    background-color: #cc0000;
+  }
+  
+  /* 🔙 Nút quay lại */
+  .back-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .back-btn:hover {
+    background-color: #45a049;
+  }
+  
