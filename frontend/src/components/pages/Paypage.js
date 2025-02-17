@@ -142,7 +142,7 @@ const Paypage = () => {
       <div className="paypage">
         {/* THÔNG TIN GIAO HÀNG */}
         <div className="customer-info">
-          <h2>Thông tin giao hàng</h2>
+          <div className="title1"><h2>Thông tin giao hàng</h2></div>
           <input type="text" name="name" value={customerInfo.name} readOnly />
           <input type="email" name="email" value={customerInfo.email} readOnly />
           <input type="text" name="phone" placeholder="Số điện thoại" value={customerInfo.phone} onChange={handleInputChange} required />
@@ -169,7 +169,7 @@ const Paypage = () => {
           <input type="text" name="address" placeholder="Địa chỉ cụ thể" value={customerInfo.address} onChange={handleInputChange} required />
 
           {/* PHƯƠNG THỨC VẬN CHUYỂN */}
-          <h3>Phương thức vận chuyển</h3>
+          <div className="title1"><h2>Phương thức vận chuyển</h2></div>
           <select name="shippingMethod" value={customerInfo.shippingMethod} onChange={handleInputChange}>
             <option value="standard">Giao hàng tiêu chuẩn (3-5 ngày)</option>
             <option value="express">Giao hàng nhanh (1-2 ngày)</option>
@@ -178,39 +178,47 @@ const Paypage = () => {
 
         {/* GIỎ HÀNG */}
         <div className="order-summary">
-        <h2>Đơn hàng của bạn</h2>
-        <ul className="order-list">
-         {orderItems.map((item, index) => (
-            <li key={index} className="order-item">
-             <img src={item.img} alt={item.name} className="order-image" />
-              <div className="order-info">
-                <p className="order-name">{item.name}</p>
-                <p className="order-price">Giá: {item.price}</p>
-                <p className="order-quantity">Số lượng: {item.quantity}</p>
-                <p className="order-total">Tổng: ₫{item.totalPrice.toLocaleString()}</p>
-                </div>
-            </li>
-            ))}
-        </ul>
+          <div className="title1"><h2>Đơn hàng của bạn</h2></div>
+          <ul className="order-list">
+          {orderItems.map((item, index) => (
+              <li key={index} className="order-item">
+              <img src={item.img} alt={item.name} className="order-image" />
+                <div className="order-info">
+                  <p className="order-name">{item.name}</p>
+                  <p className="order-price">Giá: {item.price}</p>
+                  <p className="order-quantity">Số lượng: {item.quantity}</p>
+                  <p className="order-total">Tổng: ₫{item.totalPrice.toLocaleString()}</p>
+                  </div>
+              </li>
+              ))}
+          </ul>
 
           {/* CHỌN PHƯƠNG THỨC THANH TOÁN */}
-          <h3>Phương thức thanh toán</h3>
+          <div className="title1"><h2>Phương thức thanh toán</h2></div>
           <div className="payment-method">
-            <label>
-              <input type="radio" name="paymentMethod" value="cod" checked={customerInfo.paymentMethod === "cod"} onChange={handleInputChange} />
+            <label htmlFor="cod">
+              <input type="radio" id="cod" name="paymentMethod" value="cod"
+                checked={customerInfo.paymentMethod === "cod"} 
+                onChange={handleInputChange} />
+              <span className="custom-radio"></span>
               Thanh toán khi nhận hàng (COD)
             </label>
-            <label>
-              <input type="radio" name="paymentMethod" value="qr" checked={customerInfo.paymentMethod === "qr"} onChange={handleInputChange} />
+
+            <label htmlFor="qr">
+              <input type="radio" id="qr" name="paymentMethod" value="qr"
+                checked={customerInfo.paymentMethod === "qr"} 
+                onChange={handleInputChange} />
+              <span className="custom-radio"></span>
               Thanh toán qua mã QR ngân hàng
             </label>
           </div>
+
 
           {/* NẾU CHỌN THANH TOÁN QR HIỂN THỊ ẢNH */}
           {customerInfo.paymentMethod === "qr" && (
             <div className="qr-payment">
               <p>Quét mã QR để thanh toán:</p>
-              <img src="/qr-code.png" alt="QR Code Thanh Toán" />
+              <img src="/products/Payment/qr.jpg" alt="QR Code Thanh Toán" />
             </div>
           )}
 

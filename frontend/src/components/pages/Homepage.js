@@ -22,7 +22,7 @@ const Homepage = () => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const [notification, setNotification] = useState(null);
-
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(storedCart);
@@ -62,29 +62,40 @@ const Homepage = () => {
  
   const addToCart = (product) => {
     setCartItems((prevCart) => {
-      const existingItemIndex = prevCart.findIndex((item) => item.id === product.id);
+      // 🔎 Tìm sản phẩm trong giỏ hàng
+      const existingItem = prevCart.find((item) => item.id === product.id);
   
-      let updatedCart;
-      if (existingItemIndex !== -1) {
-        // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng
-        updatedCart = [...prevCart];
-        updatedCart[existingItemIndex].quantity += 1;
-        updatedCart[existingItemIndex].totalPrice =
-          updatedCart[existingItemIndex].quantity * parseInt(product.price.replace(/[₫,.]/g, ""), 10);
+      if (existingItem) {
+        // 🔥 Tạo một bản sao mới của giỏ hàng
+        const updatedCart = prevCart.map((item) =>
+          item.id === product.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1, // Tăng số lượng đúng 1
+                totalPrice: (item.quantity + 1) * parseInt(item.price.replace(/[₫,.]/g, ""), 10),
+              }
+            : item
+        );
   
         setNotification(`Đã tăng số lượng sản phẩm!`);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        setTimeout(() => setNotification(null), 3000);
+        return updatedCart;
       } else {
-        // Nếu sản phẩm chưa có, thêm mới
-        updatedCart = [...prevCart, { ...product, quantity: 1, totalPrice: parseInt(product.price.replace(/[₫,.]/g, ""), 10) }];
-        setNotification(`Sản phẩm đã được thêm vào giỏ hàng!`);
-      }
+        // 🆕 Nếu sản phẩm chưa có, thêm mới vào giỏ hàng
+        const updatedCart = [
+          ...prevCart,
+          { ...product, quantity: 1, totalPrice: parseInt(product.price.replace(/[₫,.]/g, ""), 10) },
+        ];
   
-      // Lưu vào localStorage
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      setTimeout(() => setNotification(null), 3000); // Ẩn thông báo sau 3 giây
-      return updatedCart;
+        setNotification(`Sản phẩm đã được thêm vào giỏ hàng!`);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        setTimeout(() => setNotification(null), 3000);
+        return updatedCart;
+      }
     });
   };
+  
   
 
   // Đóng dropdown khi click ra ngoài
@@ -172,7 +183,7 @@ const Homepage = () => {
       id: 4,
       category: "shirt",
       name: "Áo Khoác Nam Hoodie Mũ Liền Khóa Kéo Chất Nỉ Bông Dày Dặn Họa Tiết In Chữ Thời Trang Zenkonu",
-      price: "₫160.200",
+      price: "₫160.000",
       img: "/products/Ao/AoKhoac/aohoodiexam.jpg",
       hoverImg: "/products/Ao/AoKhoac/aohoodieden.jpg",
     },
@@ -299,15 +310,15 @@ const Homepage = () => {
         <span className="brand-name">AISTYLISH</span>
 
         <div className="nav-right">
-          <div className="search-bar">
+          <div className={`search-bar ${isSearchOpen ? "active" : ""}`}>
             <input 
               type="text" 
               placeholder="Tìm kiếm sản phẩm..." 
               value={searchQuery} 
-              onChange={(e) => setSearchQuery(e.target.value)} 
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button>
-              <IoSearch size={20} />
+            <button className="icon-search" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+              <IoSearch size={18} />
             </button>
           </div>
 
@@ -322,7 +333,7 @@ const Homepage = () => {
           {/* Form giỏ hàng dạng dropdown */}
           {cartOpen && (
             <div className="cart-dropdown" ref={cartRef}>
-              <h4>Có <span>{cartItems.reduce((total, item) => total + item.quantity, 0)}</span> sản phẩm trong giỏ hàng</h4>
+              <div className="title4"><h4>Có <span>{cartItems.reduce((total, item) => total + item.quantity, 0)}</span> sản phẩm trong giỏ hàng</h4></div>
 
               {cartItems.length === 0 ? (
                 <p className="empty-cart-message">Giỏ hàng trống</p>
@@ -397,21 +408,21 @@ const Homepage = () => {
 
       {/* Danh mục sản phẩm */}
       <div className="main-content">
-        <h2>Áo khoác</h2>
+        <div className="title3"><h2>Áo khoác</h2></div>
         <div className="product-list">
           {products.filter((p) => p.category === "shirt").map((p) => (
             <ProductItem key={p.id} product={p} addToCart={addToCart} />
           ))}
         </div>
 
-        <h2>Quần dài</h2>
+        <div className="title3"><h2>Quần dài</h2></div>
         <div className="product-list">
           {products.filter((p) => p.category === "trouser").map((p) => (
             <ProductItem key={p.id} product={p} addToCart={addToCart} />
           ))}
         </div>
 
-        <h2>Quần short</h2>
+        <div className="title3"><h2>Quần short</h2></div>
         <div className="product-list">
           {products.filter((p) => p.category === "short").map((p) => (
             <ProductItem key={p.id} product={p} addToCart={addToCart} />
