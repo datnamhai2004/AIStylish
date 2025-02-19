@@ -41,14 +41,21 @@ admin.initializeApp({
 
 app.post('/sessionLogin', async (req, res) => {
     try {
-        console.log("🔍 Request Body:", req.body); // Kiểm tra dữ liệu từ client gửi lên
+        console.log("🔍 Request Body:", req.body);
 
         if (!req.body || !req.body.idToken) {
+            console.error("❌ idToken is missing in the request.");
             return res.status(400).json({ error: "idToken is required" });
         }
 
-        const idToken = req.body.idToken; // Lấy token từ request
-        console.log("📢 Received ID Token:", idToken); // Debug kiểm tra
+        const idToken = req.body.idToken.trim(); // Ensure no spaces
+        console.log("📢 Received ID Token:", idToken);
+
+        // ✅ Ensure token length is reasonable
+        if (idToken.length < 200) {
+            console.error("❌ Token too short, likely invalid:", idToken);
+            return res.status(401).json({ error: "Invalid ID Token" });
+        }
 
         const decodedToken = await admin.auth().verifyIdToken(idToken);
         console.log("✅ Decoded Token:", decodedToken);
@@ -60,16 +67,19 @@ app.post('/sessionLogin', async (req, res) => {
         if (!user) {
             user = new User({ uid, email, displayName, photoURL });
             await user.save();
+            console.log("🆕 New user created:", user);
             return res.status(201).json(user);
         } else {
             user.lastLogin = new Date();
             await user.save();
+            console.log("🔄 User login updated:", user);
             return res.status(200).json(user);
         }
     } catch (error) {
-        console.error("❌ Error in sessionLogin:", error.code, error.message);
-        return res.status(401).json({ error: error.message });
+        console.error("❌ Error in sessionLogin:", error);
+        return res.status(401).json({ error: "Invalid ID Token", details: error.message });
     }
 });
+
 
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
