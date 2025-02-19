@@ -15,11 +15,11 @@ const Login = ({ setUserData, closeLogin }) => {
     }
   }, [setUserData]);
 
- const handleLogin = async (provider) => {
+  const handleLogin = async (provider) => {
     try {
         const result = await signInWithPopup(auth, provider);
         
-        // ✅ Get the Firebase ID token
+        // ✅ Get the actual Firebase ID token
         const idToken = await result.user.getIdToken();
         console.log("🔥 Firebase ID Token:", idToken);
 
@@ -27,7 +27,7 @@ const Login = ({ setUserData, closeLogin }) => {
             name: result.user.displayName,
             email: result.user.email,
             photoURL: result.user.photoURL,
-            idToken: idToken // ✅ Store the valid ID Token
+            idToken: idToken // ✅ Store the real ID Token
         };
 
         setUser(userData);
@@ -36,7 +36,7 @@ const Login = ({ setUserData, closeLogin }) => {
 
         closeLogin();
 
-        // ✅ Send the token to your backend
+        // ✅ Send the real ID token to your backend
         await sendTokenToBackend(idToken);
         
     } catch (error) {
@@ -52,7 +52,7 @@ const sendTokenToBackend = async (idToken) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ idToken }), // ✅ Sending real ID Token
+            body: JSON.stringify({ idToken }), // ✅ Send a valid token
         });
 
         const data = await response.json();
@@ -60,7 +60,7 @@ const sendTokenToBackend = async (idToken) => {
     } catch (error) {
         console.error("❌ Error sending token to backend:", error);
     }
-}; 
+};
 
   return (
     <div className="login-overlay">  {/* ✅ Thêm nền mờ */}
