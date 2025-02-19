@@ -81,10 +81,6 @@ select::-webkit-scrollbar-thumb:hover {
   margin-top: 10px;
   margin-bottom: 20px;
   font-weight: bold;
-    font-family: "Lexend", serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    color: #444;
 }
 
 /* Gạch chân phía dưới */
@@ -98,6 +94,13 @@ select::-webkit-scrollbar-thumb:hover {
   left: 50%;
   transform: translateX(-50%);
   border-radius: 2px;
+}
+
+.title1 h2 {
+  font-family: "Lexend", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: #444;
 }
   
   /* ✅ Phần thông tin giao hàng */
@@ -351,5 +354,31 @@ select::-webkit-scrollbar-thumb:hover {
     .customer-info, .order-summary {
       width: 100%;
     }
-  }
+
+    .title1 h2 {
+      font-size: 14px;
+      text-align: center;
+      
+    }
+
+        
+    .title1 {
+      margin-right: 30%;
+    }
+    select[name="city"],
+    select[name="district"] {
+        width: 100%;
+    }
+
+    .confirm-payment-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .order-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
   
