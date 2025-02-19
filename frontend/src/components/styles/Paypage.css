@@ -1,0 +1,384 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+
+/* ✅ Tổng quan trang thanh toán */
+.paypage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #f9f9f9;
+  }
+  
+  .paypage {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ✅ Giảm chiều rộng của dropdown */
+select[name="city"],
+select[name="district"] {
+    width: 50%;
+    max-width: 500px;
+    height: 40px; /* Điều chỉnh chiều cao của dropdown */
+    font-size: 14px; /* Giảm kích thước chữ */
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+    appearance: none; /* Ẩn style mặc định của trình duyệt */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    cursor: pointer;
+}
+
+/* ✅ Thêm dấu ▼ vào dropdown */
+select[name="city"],
+select[name="district"] {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20' fill='%23000000'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+/* ✅ Giới hạn chiều cao khi sổ xuống */
+select {
+    max-height: 200px; /* Giới hạn chiều cao */
+    overflow-y: auto;
+}
+
+/* ✅ Thu nhỏ thanh cuộn */
+select::-webkit-scrollbar {
+    width: 6px;
+}
+
+select::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.title1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center; /* Căn giữa */
+  position: relative;
+  display: inline-block;
+  margin-left: 35%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Gạch chân phía dưới */
+.title1::after {
+  content: "";
+  width: 60px; /* Độ dài gạch chân */
+  height: 3px; /* Độ dày gạch */
+  background-color: #e74c3c; /* Màu sắc gạch */
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.title1 h2 {
+  font-family: "Lexend", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: #444;
+}
+  
+  /* ✅ Phần thông tin giao hàng */
+  .customer-info {
+    width: 48%;
+  }
+  
+  .customer-info h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  input:read-only {
+    background: #f0f0f0;
+    cursor: not-allowed;
+  }
+  
+  select {
+    cursor: pointer;
+  }
+  
+  /* ✅ Phần giỏ hàng */
+  .order-summary {
+    width: 48%;
+  }
+  
+  .order-summary h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: "Lexend", serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  .order-list {
+    max-height: 430px;  /* Giới hạn chiều cao danh sách */
+    overflow-y: auto;  /* Tạo thanh cuộn dọc khi nội dung dài */
+    padding-right: 5px; /* Tránh che nội dung khi có scrollbar */
+  }
+  
+  /* 🎨 Tuỳ chỉnh thanh cuộn (chỉ dành cho Chrome, Edge) */
+  .order-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .order-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
+  
+  .order-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .order-item {
+    display: flex;
+    align-items: center;
+    background: #f8f8f8;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .order-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .order-info {
+    flex-grow: 1;
+  }
+  
+  .order-name {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Lexend", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: #444;
+
+  }
+  
+  .order-price {
+    color: #e63946;
+    font-weight: bold;
+  }
+  
+  .order-total {
+    font-weight: bold;
+    color: #ff9800;
+  }
+  
+  /* ✅ Phương thức vận chuyển */
+  .shipping-options {
+    margin-top: 10px;
+  }
+  
+  .shipping-options label {
+    display: block;
+    margin: 5px 0;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* ✅ Phương thức thanh toán */
+  /* 🎯 Bố cục container */
+.payment-method {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 🎯 Label cho mỗi phương thức thanh toán */
+.payment-method label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+/* 🎯 Ẩn radio button mặc định */
+.payment-method input[type="radio"] {
+  display: none;
+}
+
+/* 🎯 Tạo custom radio button */
+.custom-radio {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background: white;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 🎯 Khi được chọn, thay đổi màu */
+.payment-method input[type="radio"]:checked + .custom-radio {
+  background: #007bff;
+  border-color: #007bff;
+  box-shadow: inset 0 0 0 3px white;
+}
+
+/* 🎯 Đổi màu nền label khi được chọn */
+.payment-method input[type="radio"]:checked + .custom-radio + span {
+  background: #e0f2ff;
+  border-left: 5px solid #007bff;
+}
+
+  
+  /* ✅ Hiển thị mã QR khi chọn thanh toán online */
+  .qr-payment {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .qr-payment p {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .qr-payment img {
+    width: 150px;
+    height: 150px;
+    margin-top: 5px;
+  }
+  
+  /* ✅ Tổng thanh toán */
+  .payment-summary {
+    margin-top: 20px;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff9800;
+  }
+  
+  /* ✅ Nút xác nhận thanh toán */
+  .confirm-payment-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .confirm-payment-btn:hover {
+    background-color: #e68900;
+  }
+  
+  /* ✅ Nút quay lại trang chủ */
+  .back-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #1d3557;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+  }
+  
+  .back-btn:hover {
+    background: #457b9d;
+  }
+  
+  /* ✅ Responsive cho thiết bị nhỏ */
+  @media (max-width: 768px) {
+    .paypage {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .customer-info, .order-summary {
+      width: 100%;
+    }
+
+    .title1 h2 {
+      font-size: 14px;
+      text-align: center;
+      
+    }
+
+        
+    .title1 {
+      margin-right: 30%;
+    }
+    select[name="city"],
+    select[name="district"] {
+        width: 100%;
+    }
+
+    .confirm-payment-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .order-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+  

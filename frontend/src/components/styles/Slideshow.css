@@ -1,0 +1,65 @@
+/* Slideshow container */
+.slideshow-container {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: -999;
+}
+
+/* Ảnh slide */
+.slide-image {
+    width: 100%;
+    height: 950px;
+    object-fit: cover;
+}
+
+/* Hiệu ứng chuyển slide */
+.swiper-slide {
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Nút điều hướng Swiper */
+.swiper-button-next,
+.swiper-button-prev {
+    color: white !important;
+}
+
+/* Pagination (dots dưới) */
+.swiper-pagination-bullet {
+    background: white;
+    opacity: 0.8;
+}
+
+.swiper-pagination-bullet-active {
+    background: red;
+}
+
+/* 📱 Responsive cho mobile */
+@media (max-width: 1024px) {
+    .slide-image {
+        height: 600px; /* Giảm chiều cao trên tablet */
+    }
+}
+
+@media (max-width: 768px) {
+    .slideshow-container {
+        max-width: 100%;
+    }
+
+    .slide-image {
+        height: 300px; /* Giảm chiều cao trên mobile */
+    }
+
+    /* 🎯 Nút điều hướng nhỏ hơn trên mobile */
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* 📍 Pagination lớn hơn để dễ bấm */
+    .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+    }
+}
