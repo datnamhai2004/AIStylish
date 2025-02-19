@@ -460,7 +460,7 @@ const Homepage = () => {
               <img src="/products/Payment/moca.jpg" alt="Moca" />
               <img src="/products/Payment/Kredivo.png" alt="Kredivo" />
               <img src="/products/Payment/Napas.png" alt="Napas" />
-              <img src="/products/Payment/VNPAY.png" alt="Visa" />
+              <img src="/products/Payment/visa.png" alt="Visa" />
             </div>
           </div>
 

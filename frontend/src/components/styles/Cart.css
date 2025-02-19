@@ -295,17 +295,37 @@ h3 {
 
 /* 🔵 Responsive cho mobile */
 @media (max-width: 768px) {
-  .cart-item {
+  .cart-item1 {
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .cart-image {
+    width: 120px;
+    height: 120px;
   }
 
   .cart-info {
-    text-align: center;
     padding-left: 0;
   }
 
-  .color-options, .size-options {
+  .color-options,
+  .size-options {
     justify-content: center;
+  }
+
+  .quantity-controls {
+    justify-content: center;
+  }
+
+  .checkout-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .cart-summary {
+    padding: 10px;
   }
 }
