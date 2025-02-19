@@ -22,7 +22,13 @@ const Homepage = () => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const [notification, setNotification] = useState(null);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+
+  const handleSearchIconClick = () => {
+    setIsSearchActive(!isSearchActive);
+  };
+  
+
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(storedCart);
@@ -145,28 +151,30 @@ const Homepage = () => {
     });
   
     // 🛠 Hiển thị thông báo xóa sản phẩm
-    setNotification("🗑 Đã xóa sản phẩm khỏi giỏ hàng!");
+    setNotification(" Đã xóa sản phẩm khỏi giỏ hàng!");
     setTimeout(() => setNotification(null), 3000); // Ẩn sau 3s
   };
   
+  const handleSearch = () => {
+    if (searchQuery.trim() !== "") {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
   
-  
-
-
 
   const products = [
     {
       id: 1,
       category: "shirt",
       name: "Áo Phao Nam Nữ Siêu Ấm Dáng Lửng Cổ Cao, Áo Phao Basic Cổ Cao",
-      price: "₫159.000",
+      price: "₫359.000",
       img: "/products/Ao/AoKhoac/aophao.jpg",
       hoverImg: "/products/Ao/AoKhoac/aophaotrang.jpg",
     },
     {
       id: 2,
       category: "shirt",
-      name: "Aokong Đồng phục bóng chày Mỹ nam dáng rộng",
+      name: "Áo Đồng phục bóng chày Mỹ nam dáng rộng",
       price: "₫249.000",
       img: "/products/Ao/AoKhoac/aobongchaytrang.jpg",
       hoverImg: "/products/Ao/AoKhoac/aobongchayden.jpg",
@@ -175,7 +183,7 @@ const Homepage = () => {
       id: 3,
       category: "shirt",
       name: "Áo Khoác nỉ, áo hoodie nỉ Lông Cừu Dày Dặn Phối Kẻ Sọc Tay, Phong Cách Hàn Quốc ",
-      price: "₫139.000",
+      price: "₫239.000",
       img: "/products/Ao/AoKhoac/aolongcuutrang.jpg",
       hoverImg: "/products/Ao/AoKhoac/aolongcuuden.jpg",
     },
@@ -207,7 +215,7 @@ const Homepage = () => {
       id: 7,
       category: "trouser",
       name: "Quần kaki túi hộp tặng kèm dây xích siêu truất, quần jogger bo chun phong cách Unisex",
-      price: "₫134.000",
+      price: "₫234.000",
       img: "/products/Quan/QuanDai/quankaki.jpg",
       hoverImg: "/products/Quan/QuanDai/quankaki1.jpg",
     },
@@ -215,7 +223,7 @@ const Homepage = () => {
       id: 8,
       category: "trouser",
       name: "Quần Suông Lót Lông Kẻ Caro Ống Rộng Unisex Nam Nữ",
-      price: "₫59.000",
+      price: "₫159.000",
       img: "/products/Quan/QuanDai/quansuongden.jpg",
       hoverImg: "/products/Quan/QuanDai/quansuong1.jpg",
     },
@@ -223,7 +231,7 @@ const Homepage = () => {
       id: 9,
       category: "short",
       name: "Quần Short Unisex Teelab Local Brand Vải Cotton Form Oversize Special Collection Premium",
-      price: "₫37.900",
+      price: "₫137.900",
       img: "/products/Quan/QuanShort/shortunisex.jpg",
       hoverImg: "/products/Quan/QuanShort/shortunisextrang.jpg",
     },
@@ -231,7 +239,7 @@ const Homepage = () => {
       id: 10,
       category: "short",
       name: "Quần short jean nữ rách đẹp lưng cao",
-      price: "₫59.000",
+      price: "₫250.000",
       img: "/products/Quan/QuanShort/shortjeannutrang.jpg",
       hoverImg: "/products/Quan/QuanShort/shortjeannuden.jpg",
     },
@@ -247,7 +255,7 @@ const Homepage = () => {
       id: 12,
       category: "short",
       name: "Quần Short Unisex Basic Thể Thao Phong Cách Hàn Quốc",
-      price: "₫59.900",
+      price: "₫259.900",
       img: "/products/Quan/QuanShort/shortunisexbasictrang.jpg",
       hoverImg: "/products/Quan/QuanShort/shortunisexbasicden.jpg",
     }
@@ -310,17 +318,20 @@ const Homepage = () => {
         <span className="brand-name">AISTYLISH</span>
 
         <div className="nav-right">
-          <div className={`search-bar ${isSearchOpen ? "active" : ""}`}>
-            <input 
-              type="text" 
-              placeholder="Tìm kiếm sản phẩm..." 
-              value={searchQuery} 
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button className="icon-search" onClick={() => setIsSearchOpen(!isSearchOpen)}>
-              <IoSearch size={18} />
-            </button>
-          </div>
+        <div className={`search-bar ${isSearchActive ? "active" : ""}`}>
+          <input 
+            type="text" 
+            placeholder="Tìm kiếm sản phẩm..." 
+            value={searchQuery} 
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+          />
+          <button className="icon-search" onClick={handleSearchIconClick}>
+            <IoSearch size={18} />
+          </button>
+        </div>
+
+
 
           <div className="cart-icon" onClick={() => setCartOpen(!cartOpen)}>
             <FaShoppingCart />
@@ -495,7 +506,7 @@ const Homepage = () => {
             <p>Để cập nhật những sản phẩm mới, nhận thông tin ưu đãi đặc biệt và thông tin giảm giá khác.</p>
             <div className="subscribe">
               <input type="email" placeholder="Nhập email của bạn" />
-              <button>Đăng ký</button>
+              <button className="signup">Đăng ký</button>
             </div>
           </div>
         </div>

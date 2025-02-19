@@ -4,7 +4,7 @@ import { AiOutlineEye } from "react-icons/ai";
 
 const ProductItem = ({ product, addToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
-
+  
   return (
     <div
       className="product-item"
