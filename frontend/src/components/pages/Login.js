@@ -15,23 +15,52 @@ const Login = ({ setUserData, closeLogin }) => {
     }
   }, [setUserData]);
 
-  const handleLogin = async (provider) => {
+ const handleLogin = async (provider) => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      const userData = {
-        name: result.user.displayName,
-        email: result.user.email,
-        photoURL: result.user.photoURL,
-      };
+        const result = await signInWithPopup(auth, provider);
+        
+        // ✅ Get the Firebase ID token
+        const idToken = await result.user.getIdToken();
+        console.log("🔥 Firebase ID Token:", idToken);
 
-      setUser(userData);
-      setUserData(userData);
-      localStorage.setItem("user", JSON.stringify(userData)); // ✅ Lưu vào localStorage
-      closeLogin(); // ✅ Đóng form sau khi đăng nhập thành công
+        const userData = {
+            name: result.user.displayName,
+            email: result.user.email,
+            photoURL: result.user.photoURL,
+            idToken: idToken // ✅ Store the valid ID Token
+        };
+
+        setUser(userData);
+        setUserData(userData);
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        closeLogin();
+
+        // ✅ Send the token to your backend
+        await sendTokenToBackend(idToken);
+        
     } catch (error) {
-      console.error("Login error:", error);
+        console.error("❌ Login error:", error);
     }
-  };
+};
+
+// ✅ Function to send ID Token to backend
+const sendTokenToBackend = async (idToken) => {
+    try {
+        const response = await fetch("http://localhost:5000/sessionLogin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ idToken }), // ✅ Sending real ID Token
+        });
+
+        const data = await response.json();
+        console.log("✅ Backend Response:", data);
+    } catch (error) {
+        console.error("❌ Error sending token to backend:", error);
+    }
+}; 
 
   return (
     <div className="login-overlay">  {/* ✅ Thêm nền mờ */}
