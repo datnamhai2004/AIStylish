@@ -41,22 +41,60 @@ const Chatbot = () => {
       navigate("/");
     };
 
-    const handleSendClick = () => {
+    const handleSendClick = async () => {
       if (inputMessage.trim() === "" && !selectedImage) return;
-  
+    
+      // Thêm thông tin người dùng nếu có
+      const userPreferences = {
+        height: userData?.height || null, // Chiều cao từ localStorage (nếu có)
+        weight: userData?.weight || null, // Cân nặng từ localStorage (nếu có)
+      };
+    
+      // Hiển thị tin nhắn của người dùng ngay lập tức
       const userMessage = {
         text: inputMessage,
         sender: "user",
         image: selectedImage,
       };
       setMessages((prev) => [...prev, userMessage]);
-  
-      const aiMessage = { text: "Đây là phản hồi từ AI", sender: "ai" };
-      setMessages((prev) => [...prev, aiMessage]);
-  
-      setInputMessage("");
+    
+      try {
+        const formData = new FormData();
+        formData.append("message", inputMessage);
+        formData.append("userPreferences", JSON.stringify(userPreferences));
+    
+        if (selectedImage) {
+          formData.append("file", selectedImage);
+        }
+    
+        const response = await fetch("http://localhost:5000/api/chat", {
+          method: "POST",
+          body: formData, // Gửi dữ liệu dưới dạng form-data
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          const aiMessage = { text: data.reply, sender: "ai" };
+          setMessages((prev) => [...prev, aiMessage]); // Hiển thị phản hồi từ AI
+        } else {
+          console.error("Lỗi khi gửi tin nhắn đến backend");
+        }
+      } catch (error) {
+        console.error("Lỗi mạng:", error);
+      }
+    
+      setInputMessage(""); // Xóa input sau khi gửi
       setSelectedImage(null);
     };
+    
+    // Thêm sự kiện khi nhấn Enter
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        handleSendClick();
+      }
+    };
+    
 
     const handleImageUpload = (e) => {
       const file = e.target.files[0];
@@ -172,10 +210,12 @@ const Chatbot = () => {
             )}
 
             <input
-              placeholder="Message AI Stylist"
+              type="text"
               className="message-input"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
+              onKeyDown={handleKeyDown} 
+              placeholder="Nhập thông tin để hỗ trợ tìm kiếm sản phẩm..."
             />
 
             <div className="send-container" onClick={handleSendClick}>
