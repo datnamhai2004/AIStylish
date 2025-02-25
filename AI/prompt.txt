@@ -1,0 +1,15 @@
+Dưới đây là số đo cơ thể dựa trên tọa độ keypoints (chuẩn hóa từ 0-1 theo ảnh):
+{measurements}
+
+Phân loại dáng người thành một trong các loại sau:
+- Pear Shape (Dáng quả lê): hông rộng hơn vai, eo nhỏ.
+- Inverted Triangle (Dáng tam giác ngược): vai rộng hơn hông.
+- Hourglass (Dáng đồng hồ cát): vai và hông gần bằng nhau, eo nhỏ.
+- Rectangle (Dáng chữ nhật): vai, eo, hông gần bằng nhau.
+
+Sau khi xác định dáng người, chọn outfit phù hợp từ kho hàng sau:
+{inventory}
+
+Trả lời dưới dạng JSON với 2 trường:
+- "body_shape": Tên dáng người.
+- "outfit": Danh sách sản phẩm gợi ý (tên sản phẩm).

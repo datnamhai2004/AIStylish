@@ -8,6 +8,12 @@ import Cart from "./components/pages/Cart";
 import Paypage from './components/pages/Paypage';
 import SearchResults from "./components/pages/SearchResults";
 
+import Homepage from "./pages/Homepage";
+import Cart from "./pages/Cart";
+import ProductList from "./pages/Admin/ProductList";
+import ProductForm from "./pages/Admin/ProductForm";
+import Dashboard from "./pages/Admin/Dashboard";
+
 const products = [
   {
     id: 1,
