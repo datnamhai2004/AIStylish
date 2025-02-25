@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const OpenAI = require("openai"); // ✅ Đúng cách khởi tạo OpenAI SDK
+const axios = require('axios');
+const multer = require('multer'); // 🛠 Xử lý upload ảnh
+const FormData = require('form-data'); // 🛠 Import FormData để gửi request đúng định dạng
 
 const app = express();
 
@@ -10,51 +12,47 @@ app.use(cors({
     methods: ['GET', 'POST', "PUT", 'DELETE']
 }));
 
-// Middleware để xử lý JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Middleware hỗ trợ xử lý form-data
+const storage = multer.memoryStorage(); // 🛠 Lưu file vào bộ nhớ RAM
+const upload = multer({ storage: storage });
 
-// ✅ Khởi tạo OpenAI API với API Key từ .env
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
-
-// 🟢 API Nhận tin nhắn từ frontend và gửi đến AI
-app.post("/api/chat", async (req, res) => {
-    const { message } = req.body;
-
-    if (!message) {
-        return res.status(400).json({ error: "Nội dung tin nhắn không được để trống" });
-    }
-
+app.post("/api/chat", upload.single("file"), async (req, res) => {
     try {
-        const prompt = `
-        Người dùng đang tìm kiếm tư vấn thời trang. Dựa trên nội dung sau, hãy đề xuất trang phục phù hợp:
-        "${message}"
+        console.log("📩 Nhận request:", req.body); // Debug xem có dữ liệu không
 
-        Hãy đưa ra các gợi ý cụ thể về kiểu dáng, màu sắc, cách kết hợp phụ kiện.
-        `;
+        const message = req.body.message;
+        const height = req.body.height;
+        const weight = req.body.weight;
+        const file = req.file; // 🖼 Ảnh nếu có
 
-        // ✅ Sử dụng API GPT-4 đúng cách
-        const aiResponse = await openai.chat.completions.create({
-            model: "gpt-4",
-            messages: [{ role: "user", content: prompt }],
-            max_tokens: 200,
-            temperature: 0.7,
+        if (!message && !file) {
+            return res.status(400).json({ error: "Cần nhập tin nhắn hoặc gửi ảnh" });
+        }
+
+        // Tạo form-data gửi đến AI
+        const formData = new FormData();
+        if (file) {
+            formData.append("file", file.buffer, { filename: file.originalname });
+        }
+        if (message) {
+            formData.append("message", message);
+        }
+        if (height && weight) {
+            formData.append("userPreferences", JSON.stringify({ height, weight }));
+        }
+
+        console.log("📤 Gửi dữ liệu đến AI...");
+
+        const response = await axios.post("http://localhost:8000/process_input", formData, {
+            headers: { ...formData.getHeaders() }
         });
 
-        const reply = aiResponse.choices[0].message.content.trim();
-        res.json({ reply });
-
+        console.log("✅ Nhận phản hồi từ AI:", response.data);
+        res.json(response.data);
     } catch (error) {
-        console.error("❌ Lỗi khi gọi OpenAI API:", error);
+        console.error("❌ Lỗi khi gọi AI API:", error);
         res.status(500).json({ error: "Lỗi khi xử lý yêu cầu AI", details: error.message });
     }
-});
-
-// 🟢 Endpoint kiểm tra server
-app.get('/', (req, res) => {
-    return res.send('SERVER ON');
 });
 
 // 🚀 Khởi động server
