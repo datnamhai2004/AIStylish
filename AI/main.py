@@ -24,7 +24,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["*"],  # Cho phép tất cả phương thức HTTP (GET, POST, PUT, DELETE)
     allow_headers=["*"],
 )
 
@@ -135,7 +135,6 @@ async def serve_frontend():
 #     return JSONResponse(content={"body_shape": result["body_shape"], "outfit": result["outfit"]})
 
 
-
 # Endpoint xử lý input từ backend
 @app.post("/api/process_input")
 async def process_input(
@@ -144,38 +143,25 @@ async def process_input(
     file: Optional[UploadFile] = File(None)
 ):
     try:
-        # Xử lý JSON request
-        if request.headers.get("content-type") == "application/json":
+        print("📥 Nhận request từ Backend:", request.method, request.headers)
+
+        # Kiểm tra request JSON
+        if "application/json" in request.headers.get("content-type", ""):
             body = await request.json()
-            message = body.get("message", None)
+            print("📥 JSON Body nhận được:", body)
             return JSONResponse(content={
-                "message": message,
-                "file_received": False,
+                "message": body.get("message"),
                 "status": "Processed JSON request"
             })
 
-        # Xử lý Form-data request
+        # Kiểm tra request FormData
         if not message and not file:
             return JSONResponse(content={"error": "Cần nhập tin nhắn hoặc gửi ảnh"}, status_code=400)
 
-        # Nếu có file, xử lý ảnh và phân tích
-        if file:
-            contents = await file.read()
-            image = np.array(Image.open(io.BytesIO(contents)))
-            keypoints = get_keypoints(image)
-            if not keypoints:
-                return JSONResponse(content={"error": "Không nhận diện được dáng người từ ảnh"}, status_code=400)
-            result = analyze_with_chatgpt(keypoints, inventory)
-            return JSONResponse(content={"body_shape": result["body_shape"], "outfit": result["outfit"]})
-
-        # Nếu chỉ có message
-        return JSONResponse(content={
-            "message": message,
-            "file_received": bool(file),
-            "status": "Processed Form request"
-        })
+        return JSONResponse(content={"message": message, "status": "Processed Form request"})
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Lỗi khi xử lý request: {str(e)}")
+    
 
 if __name__ == "__main__":
     import uvicorn

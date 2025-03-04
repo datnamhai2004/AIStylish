@@ -42,50 +42,40 @@ const Chatbot = () => {
     };
 
     const handleSendClick = async () => {
-      if (inputMessage.trim() === "" && !selectedImage) return;
-    
-      // Thêm thông tin người dùng nếu có
-      const userPreferences = {
-        height: userData?.height || null, // Chiều cao từ localStorage (nếu có)
-        weight: userData?.weight || null, // Cân nặng từ localStorage (nếu có)
-      };
-    
+      if (inputMessage.trim() === "") return;
+  
       // Hiển thị tin nhắn của người dùng ngay lập tức
-      const userMessage = {
-        text: inputMessage,
-        sender: "user",
-        image: selectedImage,
-      };
-      setMessages((prev) => [...prev, userMessage]);
-    
+      setMessages((prev) => [...prev, { text: inputMessage, sender: "user" }]);
+  
       try {
-        const formData = new FormData();
-        formData.append("message", inputMessage);
-        formData.append("userPreferences", JSON.stringify(userPreferences));
-    
-        if (selectedImage) {
-          formData.append("file", selectedImage);
-        }
-    
-        const response = await fetch("http://localhost:5000/api/chat", {
-          method: "POST",
-          body: formData, // Gửi dữ liệu dưới dạng form-data
-        });
-    
-        if (response.ok) {
+          console.log("📩 Gửi tin nhắn đến ChatGPT:", inputMessage);
+  
+          const response = await fetch("http://localhost:5000/api/chatgpt", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ message: inputMessage })
+          });
+  
+          if (!response.ok) {
+              console.error("❌ Lỗi khi gửi tin nhắn đến ChatGPT:", response.status);
+              return;
+          }
+  
           const data = await response.json();
-          const aiMessage = { text: data.reply, sender: "ai" };
-          setMessages((prev) => [...prev, aiMessage]); // Hiển thị phản hồi từ AI
-        } else {
-          console.error("Lỗi khi gửi tin nhắn đến backend");
-        }
+          console.log("✅ Phản hồi từ ChatGPT:", data.reply);
+  
+          // Thêm tin nhắn phản hồi của AI vào danh sách
+          setMessages((prev) => [...prev, { text: data.reply, sender: "ai" }]);
       } catch (error) {
-        console.error("Lỗi mạng:", error);
+          console.error("❌ Lỗi mạng:", error);
       }
-    
+  
       setInputMessage(""); // Xóa input sau khi gửi
-      setSelectedImage(null);
-    };
+  };
+  
+  
+    
+  
     
     // Thêm sự kiện khi nhấn Enter
     const handleKeyDown = (event) => {
@@ -126,7 +116,7 @@ const Chatbot = () => {
               <IoArrowBackCircle />
             </div>
           </div>
-
+      
           <div className="logo">
             <h1>FASHION YOUR WAY WITH AISTYLISH</h1>
           </div>
