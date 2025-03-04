@@ -7,6 +7,7 @@ import History from "./components/pages/History";  // Thêm trang lịch sử mu
 import Cart from "./components/pages/Cart";
 import Paypage from './components/pages/Paypage';
 import SearchResults from "./components/pages/SearchResults";
+import "./config/firebase";
 
 const products = [
   {

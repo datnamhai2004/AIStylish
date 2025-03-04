@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Homepage.css";
 import { FaShoppingCart, FaFacebook, FaInstagram, FaTwitter, FaTiktok, FaYoutube } 
-from "react-icons/fa";import { IoMenu,IoSearch  } from "react-icons/io5";
+from "react-icons/fa";
+import { IoMenu,IoSearch  } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { RiRobot3Line } from "react-icons/ri";
 import ProductItem from "../ProductItems"; // Import component sản phẩm

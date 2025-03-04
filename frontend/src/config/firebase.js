@@ -12,15 +12,16 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCfTb8gnu6dmhWNpfjDRG8HNv4EN40lfHE",
-  authDomain: "aistylish.firebaseapp.com",
-  databaseURL: "https://aistylish-default-rtdb.firebaseio.com",
-  projectId: "aistylish",
-  storageBucket: "aistylish.firebasestorage.app",
-  messagingSenderId: "679942124767",
-  appId: "1:679942124767:web:f9a54dd1b1f950e8a8256a",
-  measurementId: "G-J6R7VNGSY8"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
+
+console.log("🔥 Firebase API Key:", process.env.REACT_APP_FIREBASE_API_KEY);
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

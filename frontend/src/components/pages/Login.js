@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/LoginRegister.css";
-import { auth, googleProvider, signInWithPopup, facebookProvider } from "../../firebase";
+import { auth, googleProvider, signInWithPopup, facebookProvider } from "../../config/firebase";
 import googleLogo from "../../assets/google.png";
 import facebookLogo from "../../assets/facebook.png";
 
@@ -47,7 +47,7 @@ const Login = ({ setUserData, closeLogin }) => {
 // ✅ Function to send ID Token to backend
 const sendTokenToBackend = async (idToken) => {
     try {
-        const response = await fetch("http://localhost:5000/sessionLogin", {
+        const response = await fetch("http://localhost:8000/sessionLogin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
