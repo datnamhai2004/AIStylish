@@ -1,0 +1,10 @@
+# Bỏ qua thư mục virtual environment
+venv/
+AI/venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Loại bỏ các tệp lớn
+AI/venv/Lib/site-packages/
